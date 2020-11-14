@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">TMBDApp</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="guest">Guest</string>
+    <string name="popular">Popular</string>
+    <string name="trending">Trending</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="top_rated">Top rated</string>
+    <string name="watch_list">Watch list</string>
+    <string name="favorite">Favorite</string>
+    <string name="exit">Exit</string>
+    <string name="russian">Russian</string>
+    <string name="light_theme">Light theme</string>
+    <string name="dark_theme">Dark theme</string>
+    <string name="total_edits">Total edits</string>
+    <string name="total_ratings">Total ratings</string>
+    <string name="rating_review">Rating review</string>
+</resources>
