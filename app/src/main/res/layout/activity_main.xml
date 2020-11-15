@@ -22,21 +22,18 @@
             android:id="@+id/signIn"
             style="@style/MainActivityButton"
             android:background="@drawable/white_button_background"
-            android:text="@string/sign_in"
-            android:textColor="@color/black" />
+            android:text="@string/sign_in"/>
 
         <Button
             android:id="@+id/signUp"
             style="@style/MainActivityButton"
             android:background="@drawable/white_button_background"
-            android:text="@string/sign_up"
-            android:textColor="@color/black" />
+            android:text="@string/sign_up"/>
 
         <Button
-            android:id="@+id/discover"
+            android:id="@+id/guest"
             style="@style/MainActivityButton"
-            android:background="@drawable/dark_button_background"
-            android:text="@string/guest"
-            android:textColor="@color/white" />
+            android:background="@drawable/blue_button_background"
+            android:text="@string/guest"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
