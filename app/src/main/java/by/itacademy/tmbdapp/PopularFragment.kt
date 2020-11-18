@@ -10,10 +10,7 @@ import by.itacademy.tmbdapp.databinding.FragmentPopularBinding
 
 class PopularFragment : Fragment(), ListItemActionListener {
     private lateinit var binding: FragmentPopularBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
+    private val category= mutableListOf<Int>().apply { for (i in 1..50)add(i) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,7 +23,7 @@ class PopularFragment : Fragment(), ListItemActionListener {
         binding= FragmentPopularBinding.bind(view)
         binding.popularRecycler.apply {
             layoutManager=LinearLayoutManager(activity)
-            adapter=CategoryAdapter(this@PopularFragment)
+            adapter=CategoryAdapter(category,this@PopularFragment)
         }
     }
 

@@ -1,43 +1,37 @@
 package by.itacademy.tmbdapp
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import by.itacademy.tmbdapp.databinding.FragmentUpcomingBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [UpcomingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class UpcomingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+class UpcomingFragment : Fragment(),ListItemActionListener {
+    private val category = mutableListOf<Int>().apply { for (i in 101..150) add(i) }
+    private lateinit var binding: FragmentUpcomingBinding
+  
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding= FragmentUpcomingBinding.bind(view)
+        binding.upcomingRecycler.apply {
+            layoutManager=LinearLayoutManager(activity)
+            adapter=CategoryAdapter(category,this@UpcomingFragment)
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_upcoming, container, false)
     }
 
     companion object {
         fun newInstance() = UpcomingFragment()
+    }
+
+    override fun onItemClick(position: Int) {
+
     }
 }

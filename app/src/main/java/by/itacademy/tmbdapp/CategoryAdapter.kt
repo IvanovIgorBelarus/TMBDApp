@@ -1,18 +1,19 @@
 package by.itacademy.tmbdapp
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import by.itacademy.tmbdapp.databinding.CategoryRecyclerBinding
 
 class CategoryAdapter(
+    private val category: List<Int>,
     private val listItemActionListener: ListItemActionListener
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
-    private val category= mutableListOf<Int>().apply { for (i in 1..100)add(i) }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        val view=LayoutInflater.from(parent.context).inflate(R.layout.category_recycler,parent,false)
-        return CategoryViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = CategoryRecyclerBinding.inflate(inflater, parent, false)
+        return CategoryViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
@@ -22,12 +23,12 @@ class CategoryAdapter(
         }
     }
 
-    override fun getItemCount(): Int=category.size
+    override fun getItemCount(): Int = category.size
 
-    class CategoryViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
-        private var number=itemView.findViewById<TextView>(R.id.textView)
-        fun bind(film: Int){
-            number.text=film.toString()
+    class CategoryViewHolder(private var binding: CategoryRecyclerBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(film: Int) {
+            binding.textView.text = film.toString()
         }
     }
 }
