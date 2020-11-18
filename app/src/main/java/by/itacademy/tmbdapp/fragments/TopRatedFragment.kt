@@ -1,4 +1,4 @@
-package by.itacademy.tmbdapp
+package by.itacademy.tmbdapp.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.itacademy.tmbdapp.CategoryAdapter
+import by.itacademy.tmbdapp.ListItemActionListener
+import by.itacademy.tmbdapp.R
 import by.itacademy.tmbdapp.databinding.FragmentTopRatedBinding
 
-class TopRatedFragment : Fragment(),ListItemActionListener {
+class TopRatedFragment : Fragment(), ListItemActionListener {
     private val category = mutableListOf<Int>().apply { for (i in 151..200) add(i) }
     private lateinit var binding: FragmentTopRatedBinding
     override fun onCreateView(
@@ -23,7 +26,7 @@ class TopRatedFragment : Fragment(),ListItemActionListener {
         binding= FragmentTopRatedBinding.bind(view)
         binding.topRatedRecycler.apply {
             layoutManager=LinearLayoutManager(activity)
-            adapter=CategoryAdapter(category,this@TopRatedFragment)
+            adapter= CategoryAdapter(category,this@TopRatedFragment)
         }
     }
 

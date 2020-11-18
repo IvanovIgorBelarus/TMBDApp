@@ -1,4 +1,4 @@
-package by.itacademy.tmbdapp
+package by.itacademy.tmbdapp.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.itacademy.tmbdapp.CategoryAdapter
+import by.itacademy.tmbdapp.ListItemActionListener
+import by.itacademy.tmbdapp.R
 import by.itacademy.tmbdapp.databinding.FragmentPopularBinding
 
 class PopularFragment : Fragment(), ListItemActionListener {
@@ -23,7 +26,7 @@ class PopularFragment : Fragment(), ListItemActionListener {
         binding= FragmentPopularBinding.bind(view)
         binding.popularRecycler.apply {
             layoutManager=LinearLayoutManager(activity)
-            adapter=CategoryAdapter(category,this@PopularFragment)
+            adapter= CategoryAdapter(category,this@PopularFragment)
         }
     }
 

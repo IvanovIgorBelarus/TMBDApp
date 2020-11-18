@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="128dp"
-    tools:context=".PopularFragment">
+    tools:context=".fragments.PopularFragment">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/popularRecycler"
         android:layout_width="match_parent"

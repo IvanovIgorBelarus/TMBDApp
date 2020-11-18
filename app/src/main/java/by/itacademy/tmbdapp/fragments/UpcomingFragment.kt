@@ -1,4 +1,4 @@
-package by.itacademy.tmbdapp
+package by.itacademy.tmbdapp.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.itacademy.tmbdapp.CategoryAdapter
+import by.itacademy.tmbdapp.ListItemActionListener
+import by.itacademy.tmbdapp.R
 import by.itacademy.tmbdapp.databinding.FragmentUpcomingBinding
 
-class UpcomingFragment : Fragment(),ListItemActionListener {
+class UpcomingFragment : Fragment(), ListItemActionListener {
     private val category = mutableListOf<Int>().apply { for (i in 101..150) add(i) }
     private lateinit var binding: FragmentUpcomingBinding
   
@@ -17,7 +20,7 @@ class UpcomingFragment : Fragment(),ListItemActionListener {
         binding= FragmentUpcomingBinding.bind(view)
         binding.upcomingRecycler.apply {
             layoutManager=LinearLayoutManager(activity)
-            adapter=CategoryAdapter(category,this@UpcomingFragment)
+            adapter= CategoryAdapter(category,this@UpcomingFragment)
         }
     }
     override fun onCreateView(
