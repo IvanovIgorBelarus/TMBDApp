@@ -1,7 +1,7 @@
 package by.itacademy.tmbdapp
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -30,10 +30,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.settings -> {
-                isGuest = !isGuest
-                setViewPager()
-                Log.d("HM", "click optionMenu $isGuest")
+            R.id.userSetting -> {
+                startActivity(Intent(this, SettingsActivity::class.java))
+            }
+            R.id.userInfo->{
+                startActivity(Intent(this, RatingActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)

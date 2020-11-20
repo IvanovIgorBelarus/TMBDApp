@@ -11,9 +11,11 @@
     <string name="favorite">Favorite</string>
     <string name="exit">Exit</string>
     <string name="russian">Russian</string>
+    <string name="english">English</string>
     <string name="light_theme">Light theme</string>
     <string name="dark_theme">Dark theme</string>
     <string name="total_edits">Total edits</string>
     <string name="total_ratings">Total ratings</string>
     <string name="rating_review">Rating review</string>
+    <string name="films">Films</string>
 </resources>
