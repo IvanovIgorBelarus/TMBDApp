@@ -26,7 +26,7 @@ class TopRatedFragment : Fragment(), ListItemActionListener {
         binding= FragmentTopRatedBinding.bind(view)
         binding.topRatedRecycler.apply {
             layoutManager=LinearLayoutManager(activity)
-            adapter= CategoryAdapter(category,this@TopRatedFragment)
+           // adapter= CategoryAdapter(category,this@TopRatedFragment)
         }
     }
 

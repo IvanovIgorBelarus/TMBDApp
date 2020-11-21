@@ -19,7 +19,7 @@ class UserListFragment : Fragment(), ListItemActionListener {
         binding = FragmentUserListBinding.bind(view)
         binding.usersListRecycler.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = CategoryAdapter(category, this@UserListFragment)
+          //  adapter = CategoryAdapter(category, this@UserListFragment)
         }
     }
 

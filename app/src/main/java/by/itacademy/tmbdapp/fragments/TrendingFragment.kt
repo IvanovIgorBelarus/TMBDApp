@@ -26,7 +26,7 @@ class TrendingFragment : Fragment(), ListItemActionListener {
         binding= FragmentTrendingBinding.bind(view)
         binding.trendingRecycler.apply {
             layoutManager=LinearLayoutManager(activity)
-            adapter= CategoryAdapter(category,this@TrendingFragment)
+          //  adapter= CategoryAdapter(category,this@TrendingFragment)
         }
     }
 

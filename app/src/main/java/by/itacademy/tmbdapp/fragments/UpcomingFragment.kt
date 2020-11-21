@@ -20,7 +20,7 @@ class UpcomingFragment : Fragment(), ListItemActionListener {
         binding= FragmentUpcomingBinding.bind(view)
         binding.upcomingRecycler.apply {
             layoutManager=LinearLayoutManager(activity)
-            adapter= CategoryAdapter(category,this@UpcomingFragment)
+         //   adapter= CategoryAdapter(category,this@UpcomingFragment)
         }
     }
     override fun onCreateView(

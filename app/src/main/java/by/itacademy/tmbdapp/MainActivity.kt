@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             R.id.userSetting -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
-            R.id.userInfo->{
+            R.id.userInfo -> {
                 startActivity(Intent(this, RatingActivity::class.java))
             }
         }
