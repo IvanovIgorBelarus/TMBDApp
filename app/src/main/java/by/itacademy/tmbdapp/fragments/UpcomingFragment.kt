@@ -1,5 +1,6 @@
 package by.itacademy.tmbdapp.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,19 +9,28 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.tmbdapp.CategoryAdapter
 import by.itacademy.tmbdapp.ListItemActionListener
+import by.itacademy.tmbdapp.MovieActivity
 import by.itacademy.tmbdapp.R
+import by.itacademy.tmbdapp.api.MoviesRepository
+import by.itacademy.tmbdapp.api.model.Movie
 import by.itacademy.tmbdapp.databinding.FragmentUpcomingBinding
 
 class UpcomingFragment : Fragment(), ListItemActionListener {
-    private val category = mutableListOf<Int>().apply { for (i in 101..150) add(i) }
+    private var moviesList = mutableListOf<Movie>()
+    private var upcomingAdapter = CategoryAdapter(moviesList, this)
     private lateinit var binding: FragmentUpcomingBinding
   
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding= FragmentUpcomingBinding.bind(view)
+        MoviesRepository.getCategoryMovies(
+            "upcoming",
+            onSuccess = ::getMovies,
+            onError = ::onError
+        )
         binding.upcomingRecycler.apply {
             layoutManager=LinearLayoutManager(activity)
-         //   adapter= CategoryAdapter(category,this@UpcomingFragment)
+           adapter= upcomingAdapter
         }
     }
     override fun onCreateView(
@@ -35,6 +45,11 @@ class UpcomingFragment : Fragment(), ListItemActionListener {
     }
 
     override fun onItemClick(position: Int) {
-
+        startActivity(Intent(context, MovieActivity::class.java))
     }
+    private fun getMovies(movies: List<Movie>) {
+        upcomingAdapter.upDateMovies(movies)
+    }
+
+    private fun onError() {}
 }

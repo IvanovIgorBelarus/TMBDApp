@@ -19,12 +19,12 @@ object MoviesRepository {
         moviesApi = retrofit.create(MoviesApi::class.java)
     }
 
-    fun getPopularMovies(
-        page: Int = 1,
+    fun getCategoryMovies(
+        category: String,
         onSuccess: (movies: List<Movie>) -> Unit,
         onError: () -> Unit
     ) {
-        moviesApi.getPopularMovies(page = page)
+        moviesApi.getCategoryMovies(category)
             .enqueue(object : Callback<GetMoviesResponse> {
                 override fun onResponse(
                     call: Call<GetMoviesResponse>,

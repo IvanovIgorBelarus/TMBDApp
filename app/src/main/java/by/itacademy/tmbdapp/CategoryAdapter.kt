@@ -3,9 +3,12 @@ package by.itacademy.tmbdapp
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.tmbdapp.api.model.Movie
 import by.itacademy.tmbdapp.databinding.CategoryRecyclerBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 
 class CategoryAdapter(
     private var movies: List<Movie>,
@@ -25,16 +28,21 @@ class CategoryAdapter(
             itemView.setOnClickListener { listItemActionListener.onItemClick(position) }
         }
     }
-    fun upDateMovies(movies: List<Movie>){
-        this.movies=movies
+
+    fun upDateMovies(movies: List<Movie>) {
+        this.movies = movies
         notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = movies.size
     class CategoryViewHolder(private var binding: CategoryRecyclerBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        private val poster:ImageView=itemView.findViewById(R.id.imageView)
         fun bind(movie: Movie) {
-            binding.textView.text = movie.title
+            Glide.with(itemView)
+                .load("https://image.tmdb.org/t/p/w342${movie.poster_path}")
+                .transform(CenterCrop())
+                .into(poster)
         }
     }
 }
