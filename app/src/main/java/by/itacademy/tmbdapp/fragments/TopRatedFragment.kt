@@ -41,6 +41,8 @@ class TopRatedFragment : Fragment(), ListItemActionListener {
     }
 
     override fun onItemClick(movie: Movie) {
-        startActivity(Intent(context, MovieActivity::class.java))
+        val intent = Intent(context, MovieActivity::class.java)
+        intent.putExtra("id",movie.id)
+        startActivity(intent)
     }
 }

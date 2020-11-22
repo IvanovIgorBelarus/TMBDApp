@@ -1,5 +1,6 @@
 package by.itacademy.tmbdapp.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,20 +9,24 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.tmbdapp.CategoryAdapter
 import by.itacademy.tmbdapp.ListItemActionListener
+import by.itacademy.tmbdapp.MovieActivity
 import by.itacademy.tmbdapp.R
+import by.itacademy.tmbdapp.api.MoviesUpdater
 import by.itacademy.tmbdapp.api.model.Movie
 import by.itacademy.tmbdapp.databinding.FragmentUserListBinding
 
 class UserListFragment : Fragment(), ListItemActionListener {
-    private val category = mutableListOf<Int>().apply { for (i in 201..250) add(i) }
+    private val category = "favorite"
+    private var favoriteAdapter = CategoryAdapter(mutableListOf(), this)
     private lateinit var binding: FragmentUserListBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentUserListBinding.bind(view)
         binding.usersListRecycler.apply {
             layoutManager = LinearLayoutManager(activity)
-          //  adapter = CategoryAdapter(category, this@UserListFragment)
+            adapter = favoriteAdapter
         }
+        MoviesUpdater(category, binding.usersListRecycler, favoriteAdapter).getListMovies()
     }
 
     override fun onCreateView(
@@ -36,5 +41,8 @@ class UserListFragment : Fragment(), ListItemActionListener {
     }
 
     override fun onItemClick(movie: Movie) {
+        val intent = Intent(context, MovieActivity::class.java)
+        intent.putExtra("id", movie.id)
+        startActivity(intent)
     }
 }

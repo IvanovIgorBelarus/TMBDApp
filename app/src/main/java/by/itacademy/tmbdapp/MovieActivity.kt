@@ -2,15 +2,16 @@ package by.itacademy.tmbdapp
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.tmbdapp.api.MoviesRepository
 import by.itacademy.tmbdapp.api.model.Movie
 import by.itacademy.tmbdapp.databinding.ActivityMovieBinding
+import com.bumptech.glide.Glide
 
 class MovieActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMovieBinding
     private var id = -1
-    private lateinit var movie: Movie
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMovieBinding.inflate(layoutInflater)
@@ -29,14 +30,19 @@ class MovieActivity : AppCompatActivity() {
 
     private fun getMovie(movie: Movie) {
         with(binding) {
-            title.text = movie.original_title
+            title.text = movie.title
             overview.text = movie.overview
+            rating.rating = movie.popularity.toFloat() / 2
+            releaseDate.text = movie.release_date
+            Glide.with(poster)
+                .load("https://image.tmdb.org/t/p/w185${movie.poster_path}")
+                .into(poster)
         }
-
+        Log.d("HM2", "MovieActivity  $movie")
     }
 
     private fun onError() {
-        Log.d("HM2", "Error MovieActivity")
+        Toast.makeText(this, "Something wrong", Toast.LENGTH_LONG).show()
     }
 
 }
