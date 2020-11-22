@@ -11,13 +11,13 @@ import by.itacademy.tmbdapp.CategoryAdapter
 import by.itacademy.tmbdapp.ListItemActionListener
 import by.itacademy.tmbdapp.MovieActivity
 import by.itacademy.tmbdapp.R
-import by.itacademy.tmbdapp.api.MoviesRepository
+import by.itacademy.tmbdapp.api.MoviesUpdater
 import by.itacademy.tmbdapp.api.model.Movie
 import by.itacademy.tmbdapp.databinding.FragmentTopRatedBinding
 
 class TopRatedFragment : Fragment(), ListItemActionListener {
-    private var moviesList = mutableListOf<Movie>()
-    private var topAdapter = CategoryAdapter(moviesList, this)
+    private val category = "top_rated"
+    private var topAdapter = CategoryAdapter(mutableListOf(), this)
     private lateinit var binding: FragmentTopRatedBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,28 +28,19 @@ class TopRatedFragment : Fragment(), ListItemActionListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        MoviesRepository.getCategoryMovies(
-            "top_rated",
-            onSuccess = ::getMovies,
-            onError = ::onError
-        )
-        binding= FragmentTopRatedBinding.bind(view)
+        binding = FragmentTopRatedBinding.bind(view)
         binding.topRatedRecycler.apply {
-            layoutManager=LinearLayoutManager(activity)
-            adapter= topAdapter
+            layoutManager = LinearLayoutManager(activity)
+            adapter = topAdapter
         }
+        MoviesUpdater(category, binding.topRatedRecycler, topAdapter).getListMovies()
     }
 
     companion object {
         fun newInstance() = TopRatedFragment()
     }
 
-    override fun onItemClick(position: Int) {
-        startActivity(Intent(context,MovieActivity::class.java))
+    override fun onItemClick(movie: Movie) {
+        startActivity(Intent(context, MovieActivity::class.java))
     }
-    private fun getMovies(movies: List<Movie>) {
-        topAdapter.upDateMovies(movies)
-    }
-
-    private fun onError() {}
 }

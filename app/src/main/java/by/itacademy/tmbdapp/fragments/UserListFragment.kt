@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.tmbdapp.CategoryAdapter
 import by.itacademy.tmbdapp.ListItemActionListener
 import by.itacademy.tmbdapp.R
+import by.itacademy.tmbdapp.api.model.Movie
 import by.itacademy.tmbdapp.databinding.FragmentUserListBinding
 
 class UserListFragment : Fragment(), ListItemActionListener {
@@ -34,6 +35,6 @@ class UserListFragment : Fragment(), ListItemActionListener {
         fun newInstance() = UserListFragment()
     }
 
-    override fun onItemClick(position: Int) {
+    override fun onItemClick(movie: Movie) {
     }
 }

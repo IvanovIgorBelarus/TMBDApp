@@ -21,10 +21,11 @@ object MoviesRepository {
 
     fun getCategoryMovies(
         category: String,
+        page: Int,
         onSuccess: (movies: List<Movie>) -> Unit,
         onError: () -> Unit
     ) {
-        moviesApi.getCategoryMovies(category)
+        moviesApi.getCategoryMovies(category, page = page)
             .enqueue(object : Callback<GetMoviesResponse> {
                 override fun onResponse(
                     call: Call<GetMoviesResponse>,
@@ -41,9 +42,38 @@ object MoviesRepository {
                         onError.invoke()
                     }
                 }
+
                 override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
                     onError.invoke()
                 }
             })
     }
+
+    fun getMovie(
+        id: Int,
+        onSuccess: (movie: Movie) -> Unit,
+        onError: () -> Unit
+    ) {
+        moviesApi.getMovie(id)
+            .enqueue(object : Callback<Movie> {
+                override fun onResponse(
+                    call: Call<Movie>,
+                    response: Response<Movie>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            onSuccess.invoke(responseBody)
+                        } else {
+                            onError.invoke()
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<Movie>, t: Throwable) {
+                    onError.invoke()
+                }
+            })
+    }
+
 }

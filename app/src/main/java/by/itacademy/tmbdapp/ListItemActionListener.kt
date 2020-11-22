@@ -1,5 +1,7 @@
 package by.itacademy.tmbdapp
 
+import by.itacademy.tmbdapp.api.model.Movie
+
 interface ListItemActionListener {
-    fun onItemClick(position: Int)
+    fun onItemClick(movie: Movie)
 }

@@ -2,6 +2,7 @@ package by.itacademy.tmbdapp.fragments
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+
 import by.itacademy.tmbdapp.MainActivity
 
 class CategoryPagerAdapter(fa: MainActivity, private val isGuest: Boolean) :

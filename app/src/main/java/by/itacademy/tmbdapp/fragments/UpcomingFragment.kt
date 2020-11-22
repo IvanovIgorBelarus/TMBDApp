@@ -11,28 +11,25 @@ import by.itacademy.tmbdapp.CategoryAdapter
 import by.itacademy.tmbdapp.ListItemActionListener
 import by.itacademy.tmbdapp.MovieActivity
 import by.itacademy.tmbdapp.R
-import by.itacademy.tmbdapp.api.MoviesRepository
+import by.itacademy.tmbdapp.api.MoviesUpdater
 import by.itacademy.tmbdapp.api.model.Movie
 import by.itacademy.tmbdapp.databinding.FragmentUpcomingBinding
 
 class UpcomingFragment : Fragment(), ListItemActionListener {
-    private var moviesList = mutableListOf<Movie>()
-    private var upcomingAdapter = CategoryAdapter(moviesList, this)
+    private val category = "upcoming"
+    private var upcomingAdapter = CategoryAdapter(mutableListOf(), this)
     private lateinit var binding: FragmentUpcomingBinding
-  
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding= FragmentUpcomingBinding.bind(view)
-        MoviesRepository.getCategoryMovies(
-            "upcoming",
-            onSuccess = ::getMovies,
-            onError = ::onError
-        )
+        binding = FragmentUpcomingBinding.bind(view)
         binding.upcomingRecycler.apply {
-            layoutManager=LinearLayoutManager(activity)
-           adapter= upcomingAdapter
+            layoutManager = LinearLayoutManager(activity)
+            adapter = upcomingAdapter
         }
+        MoviesUpdater(category, binding.upcomingRecycler, upcomingAdapter).getListMovies()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,12 +41,7 @@ class UpcomingFragment : Fragment(), ListItemActionListener {
         fun newInstance() = UpcomingFragment()
     }
 
-    override fun onItemClick(position: Int) {
+    override fun onItemClick(movie: Movie) {
         startActivity(Intent(context, MovieActivity::class.java))
     }
-    private fun getMovies(movies: List<Movie>) {
-        upcomingAdapter.upDateMovies(movies)
-    }
-
-    private fun onError() {}
 }
