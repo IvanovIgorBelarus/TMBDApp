@@ -22,8 +22,9 @@ class MoviesUpdater(
     private fun attachMoviesOnScrollListener() {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val total = recyclerView.layoutManager!!.itemCount
-                if (dy > total) {
+                val visibleCount = recyclerView.layoutManager!!.childCount
+                val totalCount = recyclerView.adapter!!.itemCount
+                if (visibleCount == 1 || totalCount == 20) {
                     recyclerView.removeOnScrollListener(this)
                     page++
                     getListMovies()

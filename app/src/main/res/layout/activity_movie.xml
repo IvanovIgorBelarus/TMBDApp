@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/activity_background"
     android:layout_margin="24sp"
     tools:context=".MovieActivity">
 
@@ -17,23 +18,24 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:autoSizeTextType="uniform"
         android:padding="8dp"
         android:singleLine="false"
         android:text="@string/films"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/poster"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/overview"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="@string/films"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/poster"
         app:layout_constraintTop_toBottomOf="@+id/poster" />
 
@@ -50,10 +52,11 @@
     <RatingBar
         android:id="@+id/rating"
         style="@style/Widget.AppCompat.RatingBar.Indicator"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/poster"
-        app:layout_constraintLeft_toRightOf="@+id/poster" />
+        app:layout_constraintLeft_toRightOf="@+id/poster"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
