@@ -19,4 +19,7 @@
     <string name="total_ratings">Всего оценок</string>
     <string name="rating_review">Обзор рейтинга</string>
     <string name="films">Фильмы</string>
+    <string name="authentication">Авторизация</string>
+    <string name="login">Имя пользователя</string>
+    <string name="password">пароль</string>
 </resources>

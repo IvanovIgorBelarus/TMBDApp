@@ -22,9 +22,7 @@ class TopRatedFragment : Fragment(), ListItemActionListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_top_rated, container, false)
-    }
+    ): View= inflater.inflate(R.layout.fragment_top_rated, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,10 +32,6 @@ class TopRatedFragment : Fragment(), ListItemActionListener {
             adapter = topAdapter
         }
         MoviesUpdater(category, binding.topRatedRecycler, topAdapter).getListMovies()
-    }
-
-    companion object {
-        fun newInstance() = TopRatedFragment()
     }
 
     override fun onItemClick(movie: Movie) {

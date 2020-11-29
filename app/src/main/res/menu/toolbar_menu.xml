@@ -8,6 +8,10 @@
         app:showAsAction="always">
         <menu>
             <item
+                android:id="@+id/authentication"
+                android:title="@string/authentication"
+                android:icon="@drawable/ic_baseline_build_24"/>
+            <item
                 android:id="@+id/userSetting"
                 android:title="1"
                 android:icon="@drawable/ic_baseline_build_24"/>

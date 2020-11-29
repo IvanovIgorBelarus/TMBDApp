@@ -18,13 +18,11 @@ import by.itacademy.tmbdapp.databinding.FragmentPopularBinding
 class PopularFragment : Fragment(), ListItemActionListener {
     private val category = "popular"
     private lateinit var binding: FragmentPopularBinding
-    private val popularAdapter by lazy { CategoryAdapter(this)}
+    private val popularAdapter by lazy { CategoryAdapter(this) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_popular, container, false)
-    }
+        savedInstanceState: Bundle?,
+    ): View = inflater.inflate(R.layout.fragment_popular, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,13 +34,9 @@ class PopularFragment : Fragment(), ListItemActionListener {
         MoviesUpdater(category, binding.popularRecycler, popularAdapter).getListMovies()
     }
 
-    companion object {
-        fun newInstance() = PopularFragment()
-    }
-
     override fun onItemClick(movie: Movie) {
         val intent = Intent(context, MovieActivity::class.java)
-        intent.putExtra("id",movie.id)
+        intent.putExtra("id", movie.id)
         startActivity(intent)
     }
 }

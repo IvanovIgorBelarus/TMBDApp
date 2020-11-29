@@ -19,6 +19,11 @@ class UserListFragment : Fragment(), ListItemActionListener {
     private val category = "favorite"
     private val favoriteAdapter by lazy { CategoryAdapter(this) }
     private lateinit var binding: FragmentUserListBinding
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View = inflater.inflate(R.layout.fragment_user_list, container, false)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentUserListBinding.bind(view)
@@ -27,17 +32,6 @@ class UserListFragment : Fragment(), ListItemActionListener {
             adapter = favoriteAdapter
         }
         MoviesUpdater(category, binding.usersListRecycler, favoriteAdapter).getListMovies()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        return inflater.inflate(R.layout.fragment_user_list, container, false)
-    }
-
-    companion object {
-        fun newInstance() = UserListFragment()
     }
 
     override fun onItemClick(movie: Movie) {

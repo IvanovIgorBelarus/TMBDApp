@@ -18,4 +18,7 @@
     <string name="total_ratings">Total ratings</string>
     <string name="rating_review">Rating review</string>
     <string name="films">Films</string>
+    <string name="authentication">Authentication</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
 </resources>

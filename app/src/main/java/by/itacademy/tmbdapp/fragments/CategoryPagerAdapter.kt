@@ -21,13 +21,13 @@ class CategoryPagerAdapter(fa: MainActivity, private val isGuest: Boolean) :
 
     private fun createFragmentList(isGuest: Boolean): List<Fragment> {
         val fragmentList = mutableListOf<Fragment>(
-            PopularFragment.newInstance(),
-            TrendingFragment.newInstance(),
-            UpcomingFragment.newInstance(),
-            TopRatedFragment.newInstance()
+            PopularFragment(),
+            TrendingFragment(),
+            UpcomingFragment(),
+            TopRatedFragment()
         )
         if (!isGuest) {
-            fragmentList.add(UserListFragment.newInstance())
+            fragmentList.add(UserListFragment())
         }
         return fragmentList
     }
