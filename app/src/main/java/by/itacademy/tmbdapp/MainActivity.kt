@@ -2,12 +2,14 @@ package by.itacademy.tmbdapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.tmbdapp.databinding.ActivityMainBinding
 import by.itacademy.tmbdapp.fragments.CategoryPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -17,6 +19,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setViewPager()
+        val res=applicationContext.resources.configuration.locale.toLanguageTag()
+        Log.d("HM2","Language= $res")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

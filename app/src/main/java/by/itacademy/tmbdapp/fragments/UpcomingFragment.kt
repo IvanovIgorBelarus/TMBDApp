@@ -17,7 +17,7 @@ import by.itacademy.tmbdapp.databinding.FragmentUpcomingBinding
 
 class UpcomingFragment : Fragment(), ListItemActionListener {
     private val category = "upcoming"
-    private var upcomingAdapter = CategoryAdapter(mutableListOf(), this)
+    private val upcomingAdapter by lazy {  CategoryAdapter(this)}
     private lateinit var binding: FragmentUpcomingBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

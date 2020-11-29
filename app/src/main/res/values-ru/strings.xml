@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TMBDApp</string>
+    <string name="sign_in">Войти в систему</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="guest">Гость</string>
+    <string name="popular">Популярные</string>
+    <string name="trending">Горячие</string>
+    <string name="upcoming">Ожидаемые</string>
+    <string name="top_rated">Лучшие</string>
+    <string name="watch_list">Мой лист</string>
+    <string name="favorite">Выбрано</string>
+    <string name="exit">Выход</string>
+    <string name="russian">Русский</string>
+    <string name="english">Англиский</string>
+    <string name="light_theme">Светлая тема</string>
+    <string name="dark_theme">Темная тема</string>
+    <string name="total_edits">Всего записей</string>
+    <string name="total_ratings">Всего оценок</string>
+    <string name="rating_review">Обзор рейтинга</string>
+    <string name="films">Фильмы</string>
+</resources>

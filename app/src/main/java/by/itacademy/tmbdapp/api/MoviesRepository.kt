@@ -22,14 +22,15 @@ object MoviesRepository {
     fun getCategoryMovies(
         category: String,
         page: Int,
+        language: String?,
         onSuccess: (movies: List<Movie>) -> Unit,
-        onError: () -> Unit
+        onError: () -> Unit,
     ) {
-        moviesApi.getCategoryMovies(category, page = page)
+        moviesApi.getCategoryMovies(category, page = page, language = language)
             .enqueue(object : Callback<GetMoviesResponse> {
                 override fun onResponse(
                     call: Call<GetMoviesResponse>,
-                    response: Response<GetMoviesResponse>
+                    response: Response<GetMoviesResponse>,
                 ) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
@@ -51,14 +52,15 @@ object MoviesRepository {
 
     fun getMovie(
         id: Int,
+        language: String,
         onSuccess: (movie: Movie) -> Unit,
-        onError: () -> Unit
+        onError: () -> Unit,
     ) {
-        moviesApi.getMovie(id)
+        moviesApi.getMovie(id, language=language)
             .enqueue(object : Callback<Movie> {
                 override fun onResponse(
                     call: Call<Movie>,
-                    response: Response<Movie>
+                    response: Response<Movie>,
                 ) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
@@ -75,5 +77,4 @@ object MoviesRepository {
                 }
             })
     }
-
 }

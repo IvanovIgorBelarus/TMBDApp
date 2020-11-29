@@ -18,7 +18,7 @@ import by.itacademy.tmbdapp.databinding.FragmentPopularBinding
 class PopularFragment : Fragment(), ListItemActionListener {
     private val category = "popular"
     private lateinit var binding: FragmentPopularBinding
-    private var popularAdapter = CategoryAdapter(mutableListOf(), this)
+    private val popularAdapter by lazy { CategoryAdapter(this)}
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

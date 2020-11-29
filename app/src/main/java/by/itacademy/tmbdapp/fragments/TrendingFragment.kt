@@ -17,7 +17,7 @@ import by.itacademy.tmbdapp.databinding.FragmentTrendingBinding
 
 class TrendingFragment : Fragment(), ListItemActionListener {
     private val category = "now_playing"
-    private var tredAdapter = CategoryAdapter(mutableListOf(), this)
+    private val tredAdapter by lazy { CategoryAdapter(this)}
     private lateinit var binding: FragmentTrendingBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

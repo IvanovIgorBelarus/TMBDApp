@@ -17,7 +17,7 @@ import by.itacademy.tmbdapp.databinding.FragmentTopRatedBinding
 
 class TopRatedFragment : Fragment(), ListItemActionListener {
     private val category = "top_rated"
-    private var topAdapter = CategoryAdapter(mutableListOf(), this)
+    private val topAdapter by lazy { CategoryAdapter(this)}
     private lateinit var binding: FragmentTopRatedBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

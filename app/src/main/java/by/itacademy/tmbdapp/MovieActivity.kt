@@ -23,22 +23,23 @@ class MovieActivity : AppCompatActivity() {
         }
         MoviesRepository.getMovie(
             id,
+            language=baseContext.resources.configuration.locale.toLanguageTag(),
             ::getMovie,
             ::onError
         )
     }
 
     private fun getMovie(movie: Movie) {
+        Log.d("HM2", "MovieActivity  ${movie}")
         with(binding) {
             title.text = movie.title
             overview.text = movie.overview
-            rating.rating = movie.popularity.toFloat() / 2
+            rating.rating = movie.vote_average.toFloat()/2
             releaseDate.text = movie.release_date
             Glide.with(poster)
                 .load("https://image.tmdb.org/t/p/w185${movie.poster_path}")
                 .into(poster)
         }
-        Log.d("HM2", "MovieActivity  $movie")
     }
 
     private fun onError() {

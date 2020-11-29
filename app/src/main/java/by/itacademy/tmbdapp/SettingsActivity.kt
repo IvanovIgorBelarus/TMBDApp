@@ -28,10 +28,10 @@ class SettingsActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         with(binding) {
-            with(languageSwitch) {
+            with(languageSwitch, {
                 isChecked = loadLanguage()
                 if (isChecked) setText(R.string.russian) else setText(R.string.english)
-            }
+            })
             with(themeSwitch) {
                 isChecked = loadTheme()
                 if (isChecked) setText(R.string.light_theme) else setText(R.string.dark_theme)
@@ -39,8 +39,8 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         saveSettings()
     }
 
@@ -53,11 +53,10 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadLanguage(): Boolean {
-        return getSharedPreferences("settings", Context.MODE_PRIVATE).getBoolean("language", false)
-    }
+    private fun loadLanguage() =
+        getSharedPreferences("settings", Context.MODE_PRIVATE).getBoolean("language", false)
 
-    private fun loadTheme(): Boolean {
-        return getSharedPreferences("settings", Context.MODE_PRIVATE).getBoolean("theme", false)
-    }
+    private fun loadTheme() =
+        getSharedPreferences("settings", Context.MODE_PRIVATE).getBoolean("theme", false)
+
 }

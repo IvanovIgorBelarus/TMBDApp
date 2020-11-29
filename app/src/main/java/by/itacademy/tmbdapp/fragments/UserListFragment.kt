@@ -17,7 +17,7 @@ import by.itacademy.tmbdapp.databinding.FragmentUserListBinding
 
 class UserListFragment : Fragment(), ListItemActionListener {
     private val category = "favorite"
-    private var favoriteAdapter = CategoryAdapter(mutableListOf(), this)
+    private val favoriteAdapter by lazy { CategoryAdapter(this) }
     private lateinit var binding: FragmentUserListBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,7 +31,7 @@ class UserListFragment : Fragment(), ListItemActionListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_user_list, container, false)
     }
