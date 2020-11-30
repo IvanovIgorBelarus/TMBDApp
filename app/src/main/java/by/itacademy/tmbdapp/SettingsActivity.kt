@@ -16,9 +16,9 @@ class SettingsActivity : AppCompatActivity() {
                 saveSettings()
                 finish()
             }
-//            languageSwitch.setOnCheckedChangeListener { b, isChecked ->
-//                if (isChecked) b.setText(R.string.russian) else b.setText(R.string.english)
-//            }
+            languageSwitch.setOnCheckedChangeListener { b, isChecked ->
+                if (isChecked) b.setText(R.string.russian) else b.setText(R.string.english)
+            }
             themeSwitch.setOnCheckedChangeListener { b, isChecked ->
                 if (isChecked) b.setText(R.string.light_theme) else b.setText(R.string.dark_theme)
             }
@@ -28,10 +28,10 @@ class SettingsActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         with(binding) {
-//            with(languageSwitch, {
-//                isChecked = loadLanguage()
-//                if (isChecked) setText(R.string.russian) else setText(R.string.english)
-//            })
+            with(languageSwitch, {
+                isChecked = loadLanguage()
+                if (isChecked) setText(R.string.russian) else setText(R.string.english)
+            })
             with(themeSwitch) {
                 isChecked = loadTheme()
                 if (isChecked) setText(R.string.light_theme) else setText(R.string.dark_theme)
@@ -47,7 +47,7 @@ class SettingsActivity : AppCompatActivity() {
     private fun saveSettings() {
         val pref = getSharedPreferences("settings", Context.MODE_PRIVATE)
         with(pref.edit()) {
-//            putBoolean("language", binding.languageSwitch.isChecked)
+            putBoolean("language", binding.languageSwitch.isChecked)
             putBoolean("theme", binding.themeSwitch.isChecked)
             apply()
         }

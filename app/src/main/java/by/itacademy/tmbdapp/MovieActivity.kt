@@ -2,13 +2,12 @@ package by.itacademy.tmbdapp
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.tmbdapp.api.MoviesRepository
 import by.itacademy.tmbdapp.api.model.Movie
 import by.itacademy.tmbdapp.databinding.ActivityMovieBinding
 import com.bumptech.glide.Glide
 
-class MovieActivity : AppCompatActivity() {
+class MovieActivity : BaseActivity() {
     private lateinit var binding: ActivityMovieBinding
     private var id = -1
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +21,7 @@ class MovieActivity : AppCompatActivity() {
         }
         MoviesRepository.getMovie(
             id,
-            language = baseContext.resources.configuration.locale.toLanguageTag(),
+            language = dLocale.toLanguageTag(),
             ::getMovie,
             ::onError
         )

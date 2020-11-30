@@ -4,13 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.tmbdapp.databinding.ActivityMainBinding
 import by.itacademy.tmbdapp.fragments.AuthenticationFragment
 import by.itacademy.tmbdapp.fragments.CategoryPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
     private var isGuest = true
     override fun onCreate(savedInstanceState: Bundle?) {
