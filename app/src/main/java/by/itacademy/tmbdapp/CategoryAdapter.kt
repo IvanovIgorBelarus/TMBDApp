@@ -9,9 +9,9 @@ import by.itacademy.tmbdapp.databinding.CategoryRecyclerBinding
 import com.bumptech.glide.Glide
 
 class CategoryAdapter(
-   private val listItemActionListener: ListItemActionListener,
+    private val listItemActionListener: ListItemActionListener,
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
-    private var movies= mutableListOf<Movie>()
+    private var movies = mutableListOf<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val inflater = LayoutInflater.from(parent.context)

@@ -7,7 +7,7 @@ import java.util.*
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        var language = "en"
+        var language = baseContext.resources.configuration.locale.toLanguageTag()
         if (getSharedPreferences("settings", Context.MODE_PRIVATE)
                 .getBoolean("language", false)
         ) {
