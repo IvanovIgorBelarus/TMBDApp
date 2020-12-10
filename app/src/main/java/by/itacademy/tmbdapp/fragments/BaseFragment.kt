@@ -13,30 +13,44 @@ import by.itacademy.tmbdapp.MovieActivity
 import by.itacademy.tmbdapp.R
 import by.itacademy.tmbdapp.api.MoviesUpdater
 import by.itacademy.tmbdapp.api.model.Movie
-import by.itacademy.tmbdapp.databinding.FragmentUserListBinding
+import by.itacademy.tmbdapp.databinding.FragmentBaseBinding
 
-class UserListFragment : Fragment(), ListItemActionListener {
-    private val category = "favorite"
-    private val favoriteAdapter by lazy { CategoryAdapter(this) }
-    private lateinit var binding: FragmentUserListBinding
+const val POPULAR = "popular"
+const val TRENDING = "now_playing"
+const val UPCOMING = "upcoming"
+const val TOP_RATED = "top_rated"
+const val FAVORITE = "favorite"
+
+class BaseFragment : Fragment(), ListItemActionListener {
+    private lateinit var categoryFragment: String
+    private lateinit var binding: FragmentBaseBinding
+    private val popularAdapter by lazy { CategoryAdapter(this) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = inflater.inflate(R.layout.fragment_user_list, container, false)
+    ): View = inflater.inflate(R.layout.fragment_base, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentUserListBinding.bind(view)
-        binding.usersListRecycler.apply {
+        binding = FragmentBaseBinding.bind(view)
+        binding.popularRecycler.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = favoriteAdapter
+            adapter = popularAdapter
         }
-        MoviesUpdater(category, binding.usersListRecycler, favoriteAdapter).getListMovies()
+        MoviesUpdater(categoryFragment, binding.popularRecycler, popularAdapter).getListMovies()
     }
 
     override fun onItemClick(movie: Movie) {
         val intent = Intent(context, MovieActivity::class.java)
         intent.putExtra("id", movie.id)
         startActivity(intent)
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(category: String) =
+            BaseFragment().apply {
+                categoryFragment = category
+            }
     }
 }

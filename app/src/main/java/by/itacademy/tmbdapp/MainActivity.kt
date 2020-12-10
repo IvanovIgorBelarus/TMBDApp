@@ -35,6 +35,9 @@ class MainActivity : BaseActivity() {
             R.id.userInfo -> {
                 startActivity(Intent(this, RatingActivity::class.java))
             }
+            R.id.refresh -> {
+               
+            }
         }
         return super.onOptionsItemSelected(item)
     }

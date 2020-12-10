@@ -3,7 +3,6 @@ package by.itacademy.tmbdapp.api
 import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.tmbdapp.CategoryAdapter
 import by.itacademy.tmbdapp.api.model.Movie
-import by.itacademy.tmbdapp.api.model.SpokenLanguage
 
 class MoviesUpdater(
     private val category: String,
@@ -15,7 +14,7 @@ class MoviesUpdater(
         MoviesRepository.getCategoryMovies(
             category,
             page,
-            language=recyclerView.context.resources.configuration.locale.toLanguageTag(),
+            language = recyclerView.context.resources.configuration.locale.toLanguageTag(),
             ::getMovies,
             ::onError
         )
