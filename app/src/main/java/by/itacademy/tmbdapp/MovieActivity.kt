@@ -1,5 +1,7 @@
 package by.itacademy.tmbdapp
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import by.itacademy.tmbdapp.api.MoviesRepository
@@ -43,4 +45,11 @@ class MovieActivity : BaseActivity() {
         Toast.makeText(this, "Something wrong", Toast.LENGTH_LONG).show()
     }
 
+    companion object {
+        @JvmStatic
+        fun startMovieActivity(context: Context?, movie: Movie) =
+            Intent(context, MovieActivity::class.java).apply {
+                putExtra("id", movie.id)
+            }
+    }
 }

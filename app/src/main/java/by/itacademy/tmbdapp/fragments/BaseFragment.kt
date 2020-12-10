@@ -1,6 +1,5 @@
 package by.itacademy.tmbdapp.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,9 +40,7 @@ class BaseFragment : Fragment(), ListItemActionListener {
     }
 
     override fun onItemClick(movie: Movie) {
-        val intent = Intent(context, MovieActivity::class.java)
-        intent.putExtra("id", movie.id)
-        startActivity(intent)
+        startActivity(MovieActivity.startMovieActivity(context, movie))
     }
 
     companion object {
