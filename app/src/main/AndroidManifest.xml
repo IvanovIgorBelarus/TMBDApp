@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TMBDApp">
-        <activity android:name=".MovieActivity"></activity>
+        <activity android:name=".AuthenticationActivity"></activity>
+        <activity android:name=".MovieActivity" />
         <activity android:name=".RatingActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".MainActivity">

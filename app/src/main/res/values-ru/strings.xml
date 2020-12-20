@@ -22,4 +22,9 @@
     <string name="authentication">Авторизация</string>
     <string name="login">Имя пользователя</string>
     <string name="password">пароль</string>
+    <string name="settings">Настройки</string>
+    <string name="user">О пользователе</string>
+    <string name="search">поиск</string>
+    <string name="refresh">Обновить</string>
+    <string name="filter">Фильтр</string>
 </resources>

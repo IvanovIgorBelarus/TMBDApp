@@ -1,16 +1,17 @@
-package by.itacademy.tmbdapp.api
+package by.itacademy.tmbdapp.presentation
 
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
-import by.itacademy.tmbdapp.CategoryAdapter
-import by.itacademy.tmbdapp.api.model.Movie
+import by.itacademy.tmbdapp.api.moviesapi.MoviesRepository
+import by.itacademy.tmbdapp.api.data.Movie
 
-class MoviesUpdater(
+class MoviesPresenterImpl(
     private val category: String,
     private val recyclerView: RecyclerView,
     private val adapter: CategoryAdapter,
-) {
+) : MoviesPresenter {
     private var page = 1
-    fun getListMovies() {
+    override fun getListMovies() {
         MoviesRepository.getCategoryMovies(
             category,
             page,
@@ -26,6 +27,7 @@ class MoviesUpdater(
                 val visibleCount = recyclerView.layoutManager!!.childCount
                 val totalCount = recyclerView.adapter!!.itemCount
                 if (visibleCount == 1 || totalCount == 20) {
+                    Log.d("HM2","$totalCount")
                     recyclerView.removeOnScrollListener(this)
                     page++
                     getListMovies()
@@ -39,5 +41,7 @@ class MoviesUpdater(
         attachMoviesOnScrollListener()
     }
 
-    private fun onError() {}
+    private fun onError() {
+        Log.d("HM2", "ERROR")
+    }
 }

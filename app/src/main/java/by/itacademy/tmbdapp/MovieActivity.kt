@@ -3,33 +3,54 @@ package by.itacademy.tmbdapp
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
-import by.itacademy.tmbdapp.api.MoviesRepository
-import by.itacademy.tmbdapp.api.model.Movie
+import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.databinding.ActivityMovieBinding
+import by.itacademy.tmbdapp.presentation.MovieActivityListener
+import by.itacademy.tmbdapp.presentation.MoviePresenter
+import by.itacademy.tmbdapp.presentation.MoviePresenterImpl
 import com.bumptech.glide.Glide
 
-class MovieActivity : BaseActivity() {
+class MovieActivity : BaseActivity(), MovieActivityListener {
     private lateinit var binding: ActivityMovieBinding
+    private val moviePresenter: MoviePresenter by lazy { MoviePresenterImpl(this) }
     private var id = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if (intent != null) {
-            id = intent.getIntExtra("id", -1)
-        } else {
-            finish()
-        }
-        MoviesRepository.getMovie(
-            id,
-            language = dLocale.toLanguageTag(),
-            ::getMovie,
-            ::onError
-        )
+        getId()
     }
 
-    private fun getMovie(movie: Movie) {
+    override fun onStart() {
+        super.onStart()
+        moviePresenter.getMovieFromAPI(id)
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.authentication -> {
+
+            }
+            R.id.userSetting -> {
+                startActivity(Intent(this, SettingsActivity::class.java))
+            }
+            R.id.userInfo -> {
+                startActivity(Intent(this, RatingActivity::class.java))
+            }
+            R.id.refresh -> {
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun setValue(movie: Movie) {
         with(binding) {
             title.text = movie.title
             overview.text = movie.overview
@@ -41,8 +62,16 @@ class MovieActivity : BaseActivity() {
         }
     }
 
-    private fun onError() {
+    override fun onError() {
         Toast.makeText(this, "Something wrong", Toast.LENGTH_LONG).show()
+    }
+
+    private fun getId() {
+        if (intent != null) {
+            id = intent.getIntExtra("id", -1)
+        } else {
+            finish()
+        }
     }
 
     companion object {

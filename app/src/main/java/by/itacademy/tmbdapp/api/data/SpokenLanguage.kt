@@ -1,4 +1,4 @@
-package by.itacademy.tmbdapp.api.model
+package by.itacademy.tmbdapp.api.data
 
 data class SpokenLanguage(
     val english_name: String,

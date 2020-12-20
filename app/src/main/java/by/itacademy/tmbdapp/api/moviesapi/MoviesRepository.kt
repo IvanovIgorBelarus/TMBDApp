@@ -1,7 +1,7 @@
-package by.itacademy.tmbdapp.api
+package by.itacademy.tmbdapp.api.moviesapi
 
-import by.itacademy.tmbdapp.api.model.GetMoviesResponse
-import by.itacademy.tmbdapp.api.model.Movie
+import by.itacademy.tmbdapp.api.data.GetMoviesResponse
+import by.itacademy.tmbdapp.api.data.Movie
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,10 +53,10 @@ object MoviesRepository {
     fun getMovie(
         id: Int,
         language: String,
-        onSuccess: (movie: Movie) -> Unit,
+        onSuccess:( movie: Movie)->Unit,
         onError: () -> Unit,
     ) {
-        moviesApi.getMovie(id, language=language)
+        moviesApi.getMovie(id, language = language)
             .enqueue(object : Callback<Movie> {
                 override fun onResponse(
                     call: Call<Movie>,

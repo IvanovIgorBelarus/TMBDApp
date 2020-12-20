@@ -1,10 +1,9 @@
-package by.itacademy.tmbdapp
+package by.itacademy.tmbdapp.presentation
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import by.itacademy.tmbdapp.api.model.Movie
+import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.databinding.CategoryRecyclerBinding
 import com.bumptech.glide.Glide
 
@@ -27,7 +26,6 @@ class CategoryAdapter(
 
     fun appendMovies(movies: List<Movie>) {
         val positionStart = this.movies.size
-        Log.d("HM2", "positionsStart= $positionStart")
         this.movies.addAll(movies)
         if (positionStart == 0) {
             notifyDataSetChanged()
@@ -37,6 +35,7 @@ class CategoryAdapter(
     }
 
     override fun getItemCount(): Int = movies.size
+
     class CategoryViewHolder(private val binding: CategoryRecyclerBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {

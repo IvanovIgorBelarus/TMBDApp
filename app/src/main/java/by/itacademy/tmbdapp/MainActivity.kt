@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import by.itacademy.tmbdapp.databinding.ActivityMainBinding
-import by.itacademy.tmbdapp.fragments.AuthenticationFragment
 import by.itacademy.tmbdapp.fragments.CategoryPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -27,7 +26,7 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.authentication -> {
-                startAuthentication()
+                startActivity(Intent(this,AuthenticationActivity::class.java))
             }
             R.id.userSetting -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
@@ -56,11 +55,5 @@ class MainActivity : BaseActivity() {
                 4 -> tab.setText(R.string.watch_list)
             }
         }.attach()
-    }
-
-    private fun startAuthentication() {
-        supportFragmentManager.beginTransaction()
-            .add(R.id.authenticationContainer, AuthenticationFragment())
-            .commit()
     }
 }

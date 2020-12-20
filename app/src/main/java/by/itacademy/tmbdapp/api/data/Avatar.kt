@@ -1,4 +1,4 @@
-package by.itacademy.tmbdapp.api.model
+package by.itacademy.tmbdapp.api.data
 
 data class Avatar(
     val gravatar: Gravatar
