@@ -2,7 +2,10 @@ package by.itacademy.tmbdapp
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -12,26 +15,37 @@ import by.itacademy.tmbdapp.presentation.MovieActivityListener
 import by.itacademy.tmbdapp.presentation.MoviePresenter
 import by.itacademy.tmbdapp.presentation.MoviePresenterImpl
 import com.bumptech.glide.Glide
+import com.google.android.youtube.player.YouTubeBaseActivity
+import com.google.android.youtube.player.YouTubeInitializationResult
+import com.google.android.youtube.player.YouTubePlayer
+import java.util.*
 
-class MovieActivity : BaseActivity(), MovieActivityListener {
+class MovieActivity : YouTubeBaseActivity(), MovieActivityListener, YouTubePlayer.OnInitializedListener {
     private lateinit var binding: ActivityMovieBinding
     private val moviePresenter: MoviePresenter by lazy { MoviePresenterImpl(this) }
     private var id = -1
+    private var youtubeKey = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.videoView.initialize("AIzaSyBGUgorrux750rLbWjEaO5k8bAzDPWZ2LI", this)
         getId()
     }
 
     override fun onStart() {
         super.onStart()
-        moviePresenter.getMovieFromAPI(id)
+        with(moviePresenter) {
+            getMovieFromAPI(id)
+            getTrailerFromApi(id)
+        }
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.authentication -> {
@@ -62,6 +76,15 @@ class MovieActivity : BaseActivity(), MovieActivityListener {
         }
     }
 
+    override fun setTrailer(key: String) {
+        setVideo(key)
+    }
+
+    private fun setVideo(key: String) {
+        Log.d(by.itacademy.tmbdapp.fragments.TAG, "$key")
+        youtubeKey = key
+    }
+
     override fun onError() {
         Toast.makeText(this, "Something wrong", Toast.LENGTH_LONG).show()
     }
@@ -74,7 +97,31 @@ class MovieActivity : BaseActivity(), MovieActivityListener {
         }
     }
 
-    companion object {
+    override fun onInitializationSuccess(
+        provider: YouTubePlayer.Provider?,
+        player: YouTubePlayer?,
+        restored: Boolean,
+    ) {
+        player?.loadVideo(youtubeKey)
+    }
+
+    override fun onInitializationFailure(
+        provider: YouTubePlayer.Provider?,
+        result: YouTubeInitializationResult?,
+    ) {
+        Toast.makeText(this, "Ошибка", Toast.LENGTH_SHORT).show()
+    }
+
+
+//    private fun updateConfig(wrapper: ContextThemeWrapper){
+//        if (dLocale== Locale(""))
+//            return
+//        Locale.setDefault(dLocale)
+//        val config= Configuration().apply { setLocale(dLocale) }
+//        wrapper.applyOverrideConfiguration(config)
+//    }
+    companion object{
+        var dLocale: Locale = Locale("")
         @JvmStatic
         fun startMovieActivity(context: Context?, movie: Movie) =
             Intent(context, MovieActivity::class.java).apply {

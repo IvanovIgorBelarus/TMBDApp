@@ -4,5 +4,6 @@ import by.itacademy.tmbdapp.api.data.Movie
 
 interface MovieActivityListener {
     fun setValue(movie: Movie)
+    fun setTrailer(key: String)
     fun onError()
 }

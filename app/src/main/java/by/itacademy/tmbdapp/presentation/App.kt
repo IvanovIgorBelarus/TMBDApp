@@ -1,7 +1,9 @@
-package by.itacademy.tmbdapp
+package by.itacademy.tmbdapp.presentation
 
 import android.app.Application
 import android.content.Context
+import by.itacademy.tmbdapp.BaseActivity
+import by.itacademy.tmbdapp.MovieActivity
 import java.util.*
 
 class App : Application() {
@@ -13,6 +15,7 @@ class App : Application() {
         ) {
             language = "ru"
         }
-        BaseActivity.dLocale= Locale(language)
+        BaseActivity.dLocale = Locale(language)
+        MovieActivity.dLocale=Locale(language)
     }
 }

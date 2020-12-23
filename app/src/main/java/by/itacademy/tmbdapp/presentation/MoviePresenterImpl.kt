@@ -3,6 +3,7 @@ package by.itacademy.tmbdapp.presentation
 import by.itacademy.tmbdapp.BaseActivity
 import by.itacademy.tmbdapp.api.moviesapi.MoviesRepository
 import by.itacademy.tmbdapp.api.data.Movie
+import by.itacademy.tmbdapp.api.data.MovieTrailer
 
 class MoviePresenterImpl(private val movieActivityListener: MovieActivityListener) : MoviePresenter {
 
@@ -19,7 +20,20 @@ class MoviePresenterImpl(private val movieActivityListener: MovieActivityListene
         )
     }
 
-    private fun onError() {
+    override fun getTrailerFromApi(id: Int) {
+       MoviesRepository.getMovieTrailer(
+           id,
+           ::getMovieTrailer,
+           ::onError
+       )
 
+    }
+    private fun getMovieTrailer(movieTrailer: MovieTrailer){
+        movieActivityListener.setTrailer(movieTrailer.results[0].key)
+    }
+
+
+    private fun onError() {
+        movieActivityListener.onError()
     }
 }

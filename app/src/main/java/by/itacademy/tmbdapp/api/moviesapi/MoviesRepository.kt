@@ -1,7 +1,10 @@
 package by.itacademy.tmbdapp.api.moviesapi
 
+import android.util.Log
 import by.itacademy.tmbdapp.api.data.GetMoviesResponse
 import by.itacademy.tmbdapp.api.data.Movie
+import by.itacademy.tmbdapp.api.data.MovieTrailer
+import by.itacademy.tmbdapp.fragments.TAG
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,7 +56,7 @@ object MoviesRepository {
     fun getMovie(
         id: Int,
         language: String,
-        onSuccess:( movie: Movie)->Unit,
+        onSuccess: (movie: Movie) -> Unit,
         onError: () -> Unit,
     ) {
         moviesApi.getMovie(id, language = language)
@@ -73,6 +76,35 @@ object MoviesRepository {
                 }
 
                 override fun onFailure(call: Call<Movie>, t: Throwable) {
+                    onError.invoke()
+                }
+            })
+    }
+
+    fun getMovieTrailer(
+        id: Int,
+        onSuccess: (movieTrailer: MovieTrailer) -> Unit,
+        onError: () -> Unit,
+    ) {
+        moviesApi.getMovieTrailer(id = id)
+            .enqueue(object : Callback<MovieTrailer> {
+                override fun onResponse(
+                    call: Call<MovieTrailer>,
+                    response: Response<MovieTrailer>,
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            onSuccess.invoke(responseBody)
+                        } else {
+                            onError.invoke()
+                        }
+                    } else {
+                        onError.invoke()
+                    }
+                }
+
+                override fun onFailure(call: Call<MovieTrailer>, t: Throwable) {
                     onError.invoke()
                 }
             })
