@@ -1,9 +1,9 @@
-package by.itacademy.tmbdapp.presentation
+package by.itacademy.tmbdapp
 
 import android.app.Application
 import android.content.Context
-import by.itacademy.tmbdapp.BaseActivity
-import by.itacademy.tmbdapp.MovieActivity
+import by.itacademy.tmbdapp.view.BaseActivity
+import by.itacademy.tmbdapp.view.MovieActivity
 import java.util.*
 
 class App : Application() {

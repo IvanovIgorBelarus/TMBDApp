@@ -1,14 +1,14 @@
-package by.itacademy.tmbdapp
+package by.itacademy.tmbdapp.view
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
-import android.view.ContextThemeWrapper
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import by.itacademy.tmbdapp.R
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.databinding.ActivityMovieBinding
 import by.itacademy.tmbdapp.presentation.MovieActivityListener
@@ -20,7 +20,8 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import java.util.*
 
-class MovieActivity : YouTubeBaseActivity(), MovieActivityListener, YouTubePlayer.OnInitializedListener {
+class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
+    YouTubePlayer.OnInitializedListener {
     private lateinit var binding: ActivityMovieBinding
     private val moviePresenter: MoviePresenter by lazy { MoviePresenterImpl(this) }
     private var id = -1
@@ -31,6 +32,7 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener, YouTubePlaye
         setContentView(binding.root)
         binding.videoView.initialize("AIzaSyBGUgorrux750rLbWjEaO5k8bAzDPWZ2LI", this)
         getId()
+        requestedOrientation= ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun onStart() {
@@ -112,16 +114,9 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener, YouTubePlaye
         Toast.makeText(this, "Ошибка", Toast.LENGTH_SHORT).show()
     }
 
-
-//    private fun updateConfig(wrapper: ContextThemeWrapper){
-//        if (dLocale== Locale(""))
-//            return
-//        Locale.setDefault(dLocale)
-//        val config= Configuration().apply { setLocale(dLocale) }
-//        wrapper.applyOverrideConfiguration(config)
-//    }
-    companion object{
+    companion object {
         var dLocale: Locale = Locale("")
+
         @JvmStatic
         fun startMovieActivity(context: Context?, movie: Movie) =
             Intent(context, MovieActivity::class.java).apply {

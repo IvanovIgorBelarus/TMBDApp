@@ -1,7 +1,8 @@
-package by.itacademy.tmbdapp
+package by.itacademy.tmbdapp.view
 
 import android.content.Context
 import android.os.Bundle
+import by.itacademy.tmbdapp.R
 import by.itacademy.tmbdapp.databinding.ActivitySettingsBinding
 
 class SettingsActivity : BaseActivity() {

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/activity_background"
     android:paddingTop="200dp"
-    tools:context=".SettingsActivity">
+    tools:context=".view.SettingsActivity">
 
     <Switch
         android:id="@+id/languageSwitch"

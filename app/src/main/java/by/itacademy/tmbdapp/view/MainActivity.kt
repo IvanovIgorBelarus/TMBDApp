@@ -1,9 +1,13 @@
-package by.itacademy.tmbdapp
+package by.itacademy.tmbdapp.view
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import by.itacademy.tmbdapp.R
+import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.databinding.ActivityMainBinding
 import by.itacademy.tmbdapp.fragments.CategoryPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -16,6 +20,8 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setViewPager()
+        requestedOrientation=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        createGuestSession()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -26,7 +32,7 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.authentication -> {
-                startActivity(Intent(this,AuthenticationActivity::class.java))
+                startActivity(Intent(this, AuthenticationActivity::class.java))
             }
             R.id.userSetting -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
@@ -55,5 +61,11 @@ class MainActivity : BaseActivity() {
                 4 -> tab.setText(R.string.watch_list)
             }
         }.attach()
+    }
+    private fun createGuestSession(){
+        AuthenticationRepository.createGuestSession(
+            onSuccess = Toast.makeText(this,"You enter as a Guest",Toast.LENGTH_LONG).show(),
+            onError = ::error
+        )
     }
 }

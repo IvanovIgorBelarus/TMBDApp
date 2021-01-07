@@ -1,22 +1,24 @@
 package by.itacademy.tmbdapp.api.moviesapi
 
-import android.util.Log
+import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.api.data.GetMoviesResponse
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.api.data.MovieTrailer
-import by.itacademy.tmbdapp.fragments.TAG
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+const val BASE_URL = "https://api.themoviedb.org/3/"
+const val AUTHENTICATION_URL = "https://www.themoviedb.org/authenticate/"
+
 object MoviesRepository {
     private val moviesApi: MoviesApi
 
     init {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         moviesApi = retrofit.create(MoviesApi::class.java)
@@ -105,6 +107,28 @@ object MoviesRepository {
                 }
 
                 override fun onFailure(call: Call<MovieTrailer>, t: Throwable) {
+                    onError.invoke()
+                }
+            })
+    }
+
+    fun rateMovie(
+        id: Int,
+        guest_session_id: String = AuthenticationRepository.guest_session_id,
+        onSuccess: (rate: Int) -> Unit,
+        onError: () -> Unit,
+    ) {
+        moviesApi.rateMovie(id = id, guest_session_id = guest_session_id)
+            .enqueue(object : Callback<Int> {
+                override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                    if (response.isSuccessful) {
+                        onSuccess.invoke(response.body()!!)
+                    } else {
+                        onError.invoke()
+                    }
+                }
+
+                override fun onFailure(call: Call<Int>, t: Throwable) {
                     onError.invoke()
                 }
             })

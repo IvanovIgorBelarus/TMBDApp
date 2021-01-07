@@ -5,18 +5,18 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".presentation.App"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label=""
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TMBDApp">
-        <activity android:name=".AuthenticationActivity"></activity>
-        <activity android:name=".MovieActivity" />
-        <activity android:name=".RatingActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".view.AuthenticationActivity"></activity>
+        <activity android:name=".view.MovieActivity" />
+        <activity android:name=".view.RatingActivity" />
+        <activity android:name=".view.SettingsActivity" />
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

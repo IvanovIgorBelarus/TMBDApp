@@ -1,6 +1,6 @@
 package by.itacademy.tmbdapp.presentation
 
-import by.itacademy.tmbdapp.BaseActivity
+import by.itacademy.tmbdapp.view.BaseActivity
 import by.itacademy.tmbdapp.api.moviesapi.MoviesRepository
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.api.data.MovieTrailer

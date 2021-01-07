@@ -1,4 +1,4 @@
-package by.itacademy.tmbdapp
+package by.itacademy.tmbdapp.view
 
 import android.content.res.Configuration
 import android.view.ContextThemeWrapper
@@ -10,7 +10,7 @@ open class BaseActivity: AppCompatActivity() {
         updateConfig(this)
     }
     private fun updateConfig(wrapper: ContextThemeWrapper){
-        if (dLocale==Locale(""))
+        if (dLocale ==Locale(""))
             return
         Locale.setDefault(dLocale)
         val config=Configuration().apply { setLocale(dLocale) }
