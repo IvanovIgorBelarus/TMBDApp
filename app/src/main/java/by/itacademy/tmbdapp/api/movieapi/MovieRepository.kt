@@ -3,6 +3,7 @@ package by.itacademy.tmbdapp.api.movieapi
 import android.util.Log
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.api.data.MovieTrailer
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -81,23 +82,22 @@ object MovieRepository {
 
     fun rateMovie(
         id: Int,
-        onSuccess: (rate: Int) -> Unit,
+        onSuccess: () -> Unit,
         onError: () -> Unit,
     ) {
-        movieApi.rateMovie(id = id)
-            .enqueue(object : Callback<Int> {
-                override fun onResponse(call: Call<Int>, response: Response<Int>) {
-                    if (response.isSuccessful) {
-                        onSuccess.invoke(response.body()!!)
-                    } else {
-                        Log.d("qwe", "$response")
-                        onError.invoke()
-                    }
-                }
-
-                override fun onFailure(call: Call<Int>, t: Throwable) {
+        movieApi.rateMovie(id = id, value = 8.5).enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    onSuccess.invoke()
+                } else {
+                    Log.d("qwe","$response")
                     onError.invoke()
                 }
-            })
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                onError.invoke()
+            }
+        })
+
     }
 }

@@ -1,6 +1,6 @@
 package by.itacademy.tmbdapp.presentation
 
-import android.util.Log
+
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.api.data.MovieTrailer
 import by.itacademy.tmbdapp.api.movieapi.MovieRepository
@@ -39,12 +39,11 @@ class MoviePresenterImpl(private val movieActivityListener: MovieActivityListene
     }
 
     private fun getMovieTrailer(movieTrailer: MovieTrailer) {
-        Log.d("qwe","$movieTrailer")
         movieActivityListener.setTrailer(movieTrailer.results[0].key)
     }
 
-    private fun doRate(id: Int) {
-        movieActivityListener.doRate(id)
+    private fun doRate() {
+        movieActivityListener.doRate()
     }
 
 

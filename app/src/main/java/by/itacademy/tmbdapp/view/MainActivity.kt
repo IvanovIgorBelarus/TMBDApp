@@ -1,5 +1,6 @@
 package by.itacademy.tmbdapp.view
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
@@ -21,7 +22,7 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setViewPager()
-        requestedOrientation=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         changeConfig()
         createGuestSession()
     }
@@ -43,7 +44,7 @@ class MainActivity : BaseActivity() {
                 startActivity(Intent(this, RatingActivity::class.java))
             }
             R.id.refresh -> {
-               
+
             }
         }
         return super.onOptionsItemSelected(item)
@@ -64,13 +65,21 @@ class MainActivity : BaseActivity() {
             }
         }.attach()
     }
-    private fun createGuestSession(){
+
+    private fun createGuestSession() {
         AuthenticationRepository.createGuestSession(
-            onSuccess = Toast.makeText(this,"You enter as a Guest",Toast.LENGTH_LONG).show(),
+            onSuccess = Toast.makeText(this, "You enter as a Guest", Toast.LENGTH_LONG).show(),
             onError = ::error
         )
     }
-    private fun changeConfig(){
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+    private fun changeConfig() {
+        val theme =
+            getSharedPreferences("settings", Context.MODE_PRIVATE).getBoolean("theme", false)
+        if (theme) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
     }
 }

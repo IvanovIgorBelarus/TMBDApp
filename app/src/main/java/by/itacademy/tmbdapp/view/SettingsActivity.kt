@@ -20,7 +20,8 @@ class SettingsActivity : BaseActivity() {
                 if (isChecked) b.setText(R.string.russian) else b.setText(R.string.english)
             }
             themeSwitch.setOnCheckedChangeListener { b, isChecked ->
-                if (isChecked) b.setText(R.string.light_theme) else b.setText(R.string.dark_theme)
+                if (isChecked) {b.setText(R.string.light_theme)
+                } else b.setText(R.string.dark_theme)
             }
         }
     }

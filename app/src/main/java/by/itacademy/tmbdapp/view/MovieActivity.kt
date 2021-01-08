@@ -1,15 +1,12 @@
 package by.itacademy.tmbdapp.view
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
 import by.itacademy.tmbdapp.R
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.databinding.ActivityMovieBinding
@@ -51,7 +48,6 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
             getMovieFromAPI(id)
             getTrailerFromApi(id)
         }
-        changeConfig()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -93,12 +89,11 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
         setVideo(key)
     }
 
-    override fun doRate(id: Int) {
-        Toast.makeText(this, "Rating $id", Toast.LENGTH_LONG).show()
+    override fun doRate() {
+        Toast.makeText(this, "Rating done", Toast.LENGTH_LONG).show()
     }
 
     private fun setVideo(key: String) {
-        Log.d(by.itacademy.tmbdapp.fragments.TAG, "$key")
         youtubeKey = key
     }
 
@@ -109,7 +104,6 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
     private fun getId() {
         if (intent != null) {
             id = intent.getIntExtra("id", -1)
-            Log.d("qwe", "getMovieId=$id")
         } else {
             finish()
         }
@@ -138,8 +132,5 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
             Intent(context, MovieActivity::class.java).apply {
                 putExtra("id", movie.id)
             }
-    }
-    private fun changeConfig(){
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 }
