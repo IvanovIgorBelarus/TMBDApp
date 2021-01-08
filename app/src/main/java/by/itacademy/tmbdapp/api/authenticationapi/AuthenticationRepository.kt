@@ -2,6 +2,7 @@ package by.itacademy.tmbdapp.api.authenticationapi
 
 import by.itacademy.tmbdapp.api.data.Authentication
 import by.itacademy.tmbdapp.api.data.GuestSession
+import by.itacademy.tmbdapp.api.moviesapi.BASE_URL
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,7 +14,7 @@ object AuthenticationRepository {
     lateinit var guest_session_id: String
     init {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         authenticationApi = retrofit.create(AuthenticationApi::class.java)

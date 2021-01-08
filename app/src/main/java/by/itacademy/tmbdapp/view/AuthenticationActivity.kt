@@ -39,7 +39,7 @@ class AuthenticationActivity : BaseActivity(), AuthenticationActivityListener {
                 javaScriptEnabled = true
                 loadsImagesAutomatically = true
             }
-            webChromeClient = MyWebChromeClient()
+            webChromeClient = MyWebChromeClient(this@AuthenticationActivity)
             webViewClient = WebViewClient()
 
             loadUrl(AUTHENTICATION_URL + token)

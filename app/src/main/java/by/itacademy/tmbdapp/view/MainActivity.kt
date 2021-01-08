@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import by.itacademy.tmbdapp.R
 import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.databinding.ActivityMainBinding
@@ -21,6 +22,7 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
         setViewPager()
         requestedOrientation=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        changeConfig()
         createGuestSession()
     }
 
@@ -67,5 +69,8 @@ class MainActivity : BaseActivity() {
             onSuccess = Toast.makeText(this,"You enter as a Guest",Toast.LENGTH_LONG).show(),
             onError = ::error
         )
+    }
+    private fun changeConfig(){
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 }
