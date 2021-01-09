@@ -17,16 +17,16 @@ class MoviePresenterImpl(private val movieActivityListener: MovieActivityListene
         MovieRepository.getMovie(
             id,
             language = BaseActivity.dLocale.toLanguageTag(),
-            ::getMovie,
-            ::onError
+            onSuccess = ::getMovie,
+            onError = ::onError
         )
     }
 
     override fun getTrailerFromApi(id: Int) {
         MovieRepository.getMovieTrailer(
             id,
-            ::getMovieTrailer,
-            ::onError
+            onSuccess = ::getMovieTrailer,
+            onError = ::onError
         )
     }
 
@@ -34,8 +34,8 @@ class MoviePresenterImpl(private val movieActivityListener: MovieActivityListene
         MovieRepository.rateMovie(
             id,
             rate,
-            ::doRate,
-            ::onError
+            onSuccess = ::doRate,
+            onError = ::onError
         )
     }
 

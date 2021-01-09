@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -29,9 +28,7 @@ class MainActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        if (AuthenticationRepository.guest_session_id==null){
-            createGuestSession()
-        }
+        createSession()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -73,11 +70,17 @@ class MainActivity : BaseActivity() {
         }.attach()
     }
 
-    private fun createGuestSession() {
-        AuthenticationRepository.createGuestSession(
-            onSuccess = Toast.makeText(this, getString(R.string.main_activity_toast), Toast.LENGTH_LONG).show(),
-            onError = ::error
-        )
+    private fun createSession() {
+        if (AuthenticationRepository.requestToken == null) {
+            AuthenticationRepository.createGuestSession(
+                onSuccess = Toast.makeText(this,
+                    getString(R.string.main_activity_toast),
+                    Toast.LENGTH_LONG).show(),
+                onError = ::error
+            )
+        } else {
+            AuthenticationRepository.createSession()
+        }
     }
 
     private fun changeConfig() {

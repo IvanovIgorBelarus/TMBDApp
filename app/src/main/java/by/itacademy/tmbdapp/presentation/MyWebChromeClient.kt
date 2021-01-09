@@ -5,15 +5,17 @@ import android.util.Log
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
-import by.itacademy.tmbdapp.view.MainActivity
+import by.itacademy.tmbdapp.fragments.TAG
+import by.itacademy.tmbdapp.view.AuthenticationActivity
 
 class MyWebChromeClient(private val activity: AppCompatActivity) : WebChromeClient() {
     override fun onProgressChanged(view: WebView, newProgress: Int) {
         super.onProgressChanged(view, newProgress)
-        if (view.url.contains("allow")) {
+        if (view.url.contains("allow") && newProgress == 70) {
             activity.finish()
-            activity.startActivity(Intent(activity.baseContext,MainActivity::class.java))
-            Log.d("qwe", "page allow true!!!")
+            activity.startActivity(Intent(activity.baseContext,
+                AuthenticationActivity::class.java))
+            Log.d(TAG, "page allow true!!! $newProgress")
         }
     }
 }

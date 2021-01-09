@@ -1,15 +1,18 @@
 package by.itacademy.tmbdapp.view
+
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import by.itacademy.tmbdapp.R
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.databinding.ActivityMovieBinding
+import by.itacademy.tmbdapp.fragments.TAG
 import by.itacademy.tmbdapp.presentation.MovieActivityListener
 import by.itacademy.tmbdapp.presentation.MoviePresenter
 import by.itacademy.tmbdapp.presentation.MoviePresenterImpl
@@ -17,7 +20,7 @@ import com.bumptech.glide.Glide
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
-import java.util.Locale
+import java.util.*
 
 
 class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
@@ -35,8 +38,8 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
         binding.videoView.initialize("AIzaSyBGUgorrux750rLbWjEaO5k8bAzDPWZ2LI", this)
         getId()
         binding.rating.setOnRatingBarChangeListener { ratingBar, fl, b ->
-            if (b){
-                moviePresenter.rateMovie(id,fl)
+            if (b) {
+                moviePresenter.rateMovie(id, fl)
                 ratingBar.setIsIndicator(true)
             }
         }
@@ -50,6 +53,7 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
             getMovieFromAPI(id)
             getTrailerFromApi(id)
         }
+        Log.d(TAG, "id=$id")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -60,7 +64,7 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.authentication -> {
-
+                startActivity(Intent(this, AccessActivity::class.java))
             }
             R.id.userSetting -> {
                 startActivity(Intent(this, SettingsActivity::class.java))

@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import by.itacademy.tmbdapp.view.BaseActivity
 import by.itacademy.tmbdapp.view.MovieActivity
-import java.util.*
+import java.util.Locale
 
 class App : Application() {
     override fun onCreate() {

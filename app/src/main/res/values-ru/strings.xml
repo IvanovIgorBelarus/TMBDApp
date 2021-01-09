@@ -30,4 +30,5 @@
     <string name="warning">Внимание!!!</string>
     <string name="message">для изменения настроек вам необходимо перезапустить приложение</string>
     <string name="main_activity_toast">Вы вошли как гость</string>
+    <string name="auth_text">Введите имя пользователя и пароль</string>
 </resources>

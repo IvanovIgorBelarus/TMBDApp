@@ -16,5 +16,4 @@ interface MoviesApi {
         @Query("page") page: Int,
         @Query("language") language: String?,
     ): Call<GetMoviesResponse>
-
 }

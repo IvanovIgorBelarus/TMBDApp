@@ -2,7 +2,7 @@ package by.itacademy.tmbdapp.api.data
 
 import com.google.gson.annotations.SerializedName
 
-class UsersData (
+class UsersDataJSON (
     @SerializedName("username")
     val username :String,
     @SerializedName("password")
