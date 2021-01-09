@@ -11,12 +11,13 @@ import androidx.annotation.RequiresApi
 import by.itacademy.tmbdapp.api.moviesapi.AUTHENTICATION_URL
 import by.itacademy.tmbdapp.databinding.ActivityAuthenticationBinding
 import by.itacademy.tmbdapp.presentation.AuthenticationActivityListener
+import by.itacademy.tmbdapp.presentation.AuthenticationActivityPresenter
 import by.itacademy.tmbdapp.presentation.AuthenticationActivityPresenterImpl
 import by.itacademy.tmbdapp.presentation.MyWebChromeClient
 
 class AuthenticationActivity : BaseActivity(), AuthenticationActivityListener {
     private lateinit var binding: ActivityAuthenticationBinding
-    private val authenticationActivityPresenterImpl by lazy {
+    private val authenticationActivityPresenter: AuthenticationActivityPresenter by lazy {
         AuthenticationActivityPresenterImpl(this)
     }
 
@@ -24,11 +25,12 @@ class AuthenticationActivity : BaseActivity(), AuthenticationActivityListener {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthenticationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        authenticationActivityPresenter.getRequestTokenFromApi()
     }
 
-    override fun onStart() {
-        super.onStart()
-        authenticationActivityPresenterImpl.getRequestTokenFromApi()
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("qwe","onDestroy Main")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -45,6 +47,5 @@ class AuthenticationActivity : BaseActivity(), AuthenticationActivityListener {
             loadUrl(AUTHENTICATION_URL + token)
         }
     }
-
 }
 

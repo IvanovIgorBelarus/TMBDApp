@@ -1,5 +1,6 @@
 package by.itacademy.tmbdapp.api.authenticationapi
 
+import android.util.Log
 import by.itacademy.tmbdapp.api.data.Authentication
 import by.itacademy.tmbdapp.api.data.GuestSession
 import by.itacademy.tmbdapp.api.moviesapi.BASE_URL
@@ -11,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object AuthenticationRepository {
     private val authenticationApi: AuthenticationApi
-    lateinit var guest_session_id: String
+    var guest_session_id: String?=null
     init {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)

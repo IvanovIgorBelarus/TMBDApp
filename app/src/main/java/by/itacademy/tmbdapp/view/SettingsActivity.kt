@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import by.itacademy.tmbdapp.R
 import by.itacademy.tmbdapp.databinding.ActivitySettingsBinding
+import by.itacademy.tmbdapp.fragments.SettingsDialog
 
 class SettingsActivity : BaseActivity() {
     private lateinit var binding: ActivitySettingsBinding
@@ -14,13 +15,14 @@ class SettingsActivity : BaseActivity() {
         with(binding) {
             exitButton.setOnClickListener {
                 saveSettings()
-                finish()
+                createDialog()
             }
             languageSwitch.setOnCheckedChangeListener { b, isChecked ->
                 if (isChecked) b.setText(R.string.russian) else b.setText(R.string.english)
             }
             themeSwitch.setOnCheckedChangeListener { b, isChecked ->
-                if (isChecked) {b.setText(R.string.light_theme)
+                if (isChecked) {
+                    b.setText(R.string.light_theme)
                 } else b.setText(R.string.dark_theme)
             }
         }
@@ -60,4 +62,9 @@ class SettingsActivity : BaseActivity() {
     private fun loadTheme() =
         getSharedPreferences("settings", Context.MODE_PRIVATE).getBoolean("theme", false)
 
+    private fun createDialog() {
+        val dialog = SettingsDialog()
+        val manager = supportFragmentManager
+        dialog.show(manager, "dialog")
+    }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -24,7 +25,13 @@ class MainActivity : BaseActivity() {
         setViewPager()
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         changeConfig()
-        createGuestSession()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (AuthenticationRepository.guest_session_id==null){
+            createGuestSession()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -68,7 +75,7 @@ class MainActivity : BaseActivity() {
 
     private fun createGuestSession() {
         AuthenticationRepository.createGuestSession(
-            onSuccess = Toast.makeText(this, "You enter as a Guest", Toast.LENGTH_LONG).show(),
+            onSuccess = Toast.makeText(this, getString(R.string.main_activity_toast), Toast.LENGTH_LONG).show(),
             onError = ::error
         )
     }

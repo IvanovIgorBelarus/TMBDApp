@@ -27,4 +27,7 @@
     <string name="search">поиск</string>
     <string name="refresh">Обновить</string>
     <string name="filter">Фильтр</string>
+    <string name="warning">Внимание!!!</string>
+    <string name="message">для изменения настроек вам необходимо перезапустить приложение</string>
+    <string name="main_activity_toast">Вы вошли как гость</string>
 </resources>

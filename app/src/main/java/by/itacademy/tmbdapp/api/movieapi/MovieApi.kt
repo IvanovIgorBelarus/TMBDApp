@@ -1,7 +1,9 @@
 package by.itacademy.tmbdapp.api.movieapi
 
+import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.api.data.MovieTrailer
+import by.itacademy.tmbdapp.api.data.RateValue
 import by.itacademy.tmbdapp.api.moviesapi.API_KEY
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -20,11 +22,13 @@ interface MovieApi {
         @Path("movie_id") id: Int,
         @Query("api_key") apiKey: String = API_KEY,
     ): Call<MovieTrailer>
+
     @Headers("Content-Type: application/json;charset=utf-8")
     @POST("movie/{movie_id}/rating")
     fun rateMovie(
         @Path("movie_id") id: Int,
         @Query("api_key") apiKey: String = API_KEY,
-        @Body value: Double = 8.5,
+        @Query("guest_session_id") session:String?=AuthenticationRepository.guest_session_id,
+        @Body value: RateValue,
     ): Call<ResponseBody>
 }

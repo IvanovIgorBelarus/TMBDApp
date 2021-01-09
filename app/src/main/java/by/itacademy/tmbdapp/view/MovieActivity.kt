@@ -34,9 +34,11 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
         setContentView(binding.root)
         binding.videoView.initialize("AIzaSyBGUgorrux750rLbWjEaO5k8bAzDPWZ2LI", this)
         getId()
-        binding.rating.setOnTouchListener { view, motionEvent ->
-            moviePresenter.rateMovie(id)
-            true
+        binding.rating.setOnRatingBarChangeListener { ratingBar, fl, b ->
+            if (b){
+                moviePresenter.rateMovie(id,fl)
+                ratingBar.setIsIndicator(true)
+            }
         }
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -89,8 +91,8 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
         setVideo(key)
     }
 
-    override fun doRate() {
-        Toast.makeText(this, "Rating done", Toast.LENGTH_LONG).show()
+    override fun doRate(rate: Float) {
+        Toast.makeText(this, "You get $rate", Toast.LENGTH_LONG).show()
     }
 
     private fun setVideo(key: String) {

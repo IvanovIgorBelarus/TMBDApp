@@ -20,7 +20,6 @@ const val TRENDING = "now_playing"
 const val UPCOMING = "upcoming"
 const val TOP_RATED = "top_rated"
 const val FAVORITE = "favorite"
-const val TAG="Tag"
 
 class BaseFragment : Fragment(), ListItemActionListener {
     private lateinit var categoryFragment: String

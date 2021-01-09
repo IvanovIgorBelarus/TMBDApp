@@ -30,9 +30,10 @@ class MoviePresenterImpl(private val movieActivityListener: MovieActivityListene
         )
     }
 
-    override fun rateMovie(id: Int) {
+    override fun rateMovie(id: Int, rate:Float) {
         MovieRepository.rateMovie(
             id,
+            rate,
             ::doRate,
             ::onError
         )
@@ -42,8 +43,8 @@ class MoviePresenterImpl(private val movieActivityListener: MovieActivityListene
         movieActivityListener.setTrailer(movieTrailer.results[0].key)
     }
 
-    private fun doRate() {
-        movieActivityListener.doRate()
+    private fun doRate(rate: Float) {
+        movieActivityListener.doRate(rate)
     }
 
 

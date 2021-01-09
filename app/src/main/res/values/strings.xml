@@ -26,5 +26,7 @@
     <string name="search">Search</string>
     <string name="refresh">Refresh</string>
     <string name="filter">Filter</string>
-
+    <string name="warning">Warning!!!</string>
+    <string name="message">To change the settings you need to restart the application</string>
+    <string name="main_activity_toast">You enter as a Guest</string>
 </resources>

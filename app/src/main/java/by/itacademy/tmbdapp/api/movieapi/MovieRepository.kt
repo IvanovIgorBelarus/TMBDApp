@@ -1,8 +1,10 @@
 package by.itacademy.tmbdapp.api.movieapi
 
 import android.util.Log
+import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.api.data.MovieTrailer
+import by.itacademy.tmbdapp.api.data.RateValue
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -82,15 +84,16 @@ object MovieRepository {
 
     fun rateMovie(
         id: Int,
-        onSuccess: () -> Unit,
+        rate:Float,
+        onSuccess: (rate: Float) -> Unit,
         onError: () -> Unit,
     ) {
-        movieApi.rateMovie(id = id, value = 8.5).enqueue(object : Callback<ResponseBody> {
+        movieApi.rateMovie(id = id, value = RateValue(rate)).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
-                    onSuccess.invoke()
+                    onSuccess.invoke(rate)
+                    Log.d("qwe", response.body().toString())
                 } else {
-                    Log.d("qwe","$response")
                     onError.invoke()
                 }
             }

@@ -6,8 +6,8 @@ import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 
 class AuthenticationActivityPresenterImpl(
     private val authenticationActivityListener: AuthenticationActivityListener,
-) {
-    fun getRequestTokenFromApi() {
+): AuthenticationActivityPresenter {
+    override fun getRequestTokenFromApi() {
         AuthenticationRepository.getRequestToken(
             onSuccess = ::getRequestToken,
             onError = ::onError
