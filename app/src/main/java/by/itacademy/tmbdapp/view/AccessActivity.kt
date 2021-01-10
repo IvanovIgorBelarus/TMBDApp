@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
+import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.api.moviesapi.AUTHENTICATION_URL
 import by.itacademy.tmbdapp.databinding.ActivityAccessBinding
 import by.itacademy.tmbdapp.presentation.MyWebChromeClient
@@ -22,6 +23,11 @@ class AccessActivity : BaseActivity() {
         binding = ActivityAccessBinding.inflate(layoutInflater)
         setContentView(binding.root)
         accessActivityPresenter.getRequestTokenFromApi()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        AuthenticationRepository.createSession()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

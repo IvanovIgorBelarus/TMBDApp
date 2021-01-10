@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,66 +8,72 @@
     android:background="@color/colorBackground"
     tools:context=".view.MovieActivity">
 
-    <ImageView
-        android:id="@+id/poster"
-        android:layout_width="180dp"
-        android:layout_height="240dp"
-        android:layout_margin="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/adapterRecycler"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:singleLine="false"
-        android:text="@string/films"
-        android:textSize="20sp"
-        android:textColor="@color/textColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/poster"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/videoView"/>
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/title"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:singleLine="false"-->
+    <!--        android:text="@string/films"-->
+    <!--        android:textColor="@color/textColor"-->
+    <!--        android:textSize="20sp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/poster"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/videoView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/rating"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/poster"
-        app:layout_constraintTop_toBottomOf="@id/releaseDate"/>
-
-    <TextView
-        android:id="@+id/overview"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="@string/films"
-        android:textSize="18sp"
-        android:textColor="@color/textColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/poster"
-        app:layout_constraintTop_toBottomOf="@+id/poster" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/releaseDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15dp"
-        android:textColor="@color/textColor"
-        app:layout_constraintStart_toEndOf="@+id/poster"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        tools:ignore="SpUsage" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/releaseDate"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:textColor="@color/textColor"-->
+    <!--        android:textSize="15dp"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/poster"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/title"-->
+    <!--        tools:ignore="SpUsage" />-->
 
-    <RatingBar
-        android:id="@+id/rating"
-        style="@style/Widget.AppCompat.RatingBar.Indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:isIndicator="false"
-        android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/poster"
-        app:layout_constraintStart_toEndOf="@+id/poster" />
+    <!--    <RatingBar-->
+    <!--        android:id="@+id/rating"-->
+    <!--        style="@style/Widget.AppCompat.RatingBar.Indicator"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:clickable="true"-->
+    <!--        android:focusable="true"-->
+    <!--        android:isIndicator="false"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/poster"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/poster" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/genres"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="8dp"-->
+    <!--        android:textColor="@color/textColor"-->
+    <!--        android:textSize="16sp"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/poster"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/rating" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/overview"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="8dp"-->
+    <!--        android:text="@string/films"-->
+    <!--        android:textColor="@color/textColor"-->
+    <!--        android:textSize="18sp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/poster"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/genres" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

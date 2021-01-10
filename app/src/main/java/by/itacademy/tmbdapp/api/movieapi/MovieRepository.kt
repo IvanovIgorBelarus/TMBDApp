@@ -3,7 +3,9 @@ package by.itacademy.tmbdapp.api.movieapi
 import android.util.Log
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.api.data.MovieTrailer
-import by.itacademy.tmbdapp.api.data.RateValue
+import by.itacademy.tmbdapp.api.data.RateValueJSON
+import by.itacademy.tmbdapp.api.data.SimilarMoviesJSON
+import by.itacademy.tmbdapp.api.data.SimilarResult
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -81,13 +83,39 @@ object MovieRepository {
             })
     }
 
+    fun getSimilarMovies(
+        id: Int,
+        language: String,
+        onSuccess: (similarList: List<SimilarResult>?) -> Unit,
+        onError: () -> Unit,
+    ) {
+        movieApi.getSimilarMovies(id = id, language = language)
+            .enqueue(object :Callback<SimilarMoviesJSON>{
+                override fun onResponse(
+                    call: Call<SimilarMoviesJSON>,
+                    response: Response<SimilarMoviesJSON>,
+                ) {
+                    if (response.isSuccessful){
+                        onSuccess.invoke(response.body()?.results)
+                    }
+                    else {
+                        onError.invoke()
+                    }
+                }
+
+                override fun onFailure(call: Call<SimilarMoviesJSON>, t: Throwable) {
+                    onError.invoke()
+                }
+            })
+    }
+
     fun rateMovie(
         id: Int,
         rate: Float,
         onSuccess: (rate: Float) -> Unit,
         onError: () -> Unit,
     ) {
-        movieApi.rateMovie(id = id, value = RateValue(rate))
+        movieApi.rateMovie(id = id, value = RateValueJSON(rate))
             .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(
                     call: Call<ResponseBody>,
@@ -105,6 +133,5 @@ object MovieRepository {
                     onError.invoke()
                 }
             })
-
     }
 }

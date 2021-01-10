@@ -9,14 +9,16 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.tmbdapp.R
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.databinding.ActivityMovieBinding
 import by.itacademy.tmbdapp.fragments.TAG
 import by.itacademy.tmbdapp.presentation.MovieActivityListener
+import by.itacademy.tmbdapp.presentation.MovieAdapter
 import by.itacademy.tmbdapp.presentation.MoviePresenter
 import by.itacademy.tmbdapp.presentation.MoviePresenterImpl
-import com.bumptech.glide.Glide
+import by.itacademy.tmbdapp.uimodel.UIMovieModel
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
@@ -29,21 +31,19 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
     private val moviePresenter: MoviePresenter by lazy { MoviePresenterImpl(this) }
     private var id = -1
     private var youtubeKey = ""
+    private val movieAdapter by lazy { MovieAdapter(this) }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.adapterRecycler.apply {
+            layoutManager = LinearLayoutManager(this@MovieActivity)
+            adapter = movieAdapter
+        }
         binding.videoView.initialize("AIzaSyBGUgorrux750rLbWjEaO5k8bAzDPWZ2LI", this)
         getId()
-        binding.rating.setOnRatingBarChangeListener { ratingBar, fl, b ->
-            if (b) {
-                moviePresenter.rateMovie(id, fl)
-                ratingBar.setIsIndicator(true)
-            }
-        }
-
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
@@ -79,16 +79,8 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
         return super.onOptionsItemSelected(item)
     }
 
-    override fun setValue(movie: Movie) {
-        with(binding) {
-            title.text = movie.title
-            overview.text = movie.overview
-            rating.rating = movie.vote_average.toFloat() / 2
-            releaseDate.text = movie.release_date
-            Glide.with(poster)
-                .load("https://image.tmdb.org/t/p/w185${movie.poster_path}")
-                .into(poster)
-        }
+    override fun setValue(list: List<UIMovieModel>) {
+        movieAdapter.update(list)
     }
 
     override fun setTrailer(key: String) {

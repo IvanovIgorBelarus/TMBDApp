@@ -1,9 +1,9 @@
 package by.itacademy.tmbdapp.presentation
 
-import by.itacademy.tmbdapp.api.data.Movie
+import by.itacademy.tmbdapp.uimodel.UIMovieModel
 
 interface MovieActivityListener {
-    fun setValue(movie: Movie)
+    fun setValue(list: List<UIMovieModel>)
     fun setTrailer(key: String)
     fun doRate(rate: Float)
     fun onError()

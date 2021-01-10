@@ -3,14 +3,29 @@ package by.itacademy.tmbdapp.presentation
 
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.api.data.MovieTrailer
+import by.itacademy.tmbdapp.api.data.SimilarResult
 import by.itacademy.tmbdapp.api.movieapi.MovieRepository
+import by.itacademy.tmbdapp.uimodel.UIMovieModel
+import by.itacademy.tmbdapp.uimodelmapper.FeedItemMapper
+import by.itacademy.tmbdapp.uimodelmapper.OverViewMapper
+import by.itacademy.tmbdapp.uimodelmapper.SimilarMoviesMapper
 import by.itacademy.tmbdapp.view.BaseActivity
 
-class MoviePresenterImpl(private val movieActivityListener: MovieActivityListener) :
+class MoviePresenterImpl(
+    private val movieActivityListener: MovieActivityListener,
+    private val feedItemMapper: FeedItemMapper = FeedItemMapper(),
+    private val overViewMapper: OverViewMapper = OverViewMapper(),
+    private val similarMoviesMapper: SimilarMoviesMapper = SimilarMoviesMapper(),
+) :
     MoviePresenter {
+    private var similarResultList: MutableList<SimilarResult>? = null
 
     private fun getMovie(movie: Movie) {
-        movieActivityListener.setValue(movie)
+        val list = mutableListOf<UIMovieModel>()
+        list.add(feedItemMapper.invoke(movie))
+        list.add(overViewMapper.invoke(movie))
+        list.add(similarMoviesMapper.invoke(similarResultList))
+        movieActivityListener.setValue(list.toList())
     }
 
     override fun getMovieFromAPI(id: Int) {
@@ -18,6 +33,16 @@ class MoviePresenterImpl(private val movieActivityListener: MovieActivityListene
             id,
             language = BaseActivity.dLocale.toLanguageTag(),
             onSuccess = ::getMovie,
+            onError = ::onError
+        )
+        getSimilarMoviesFromAPI(id)
+    }
+
+    private fun getSimilarMoviesFromAPI(id: Int) {
+        MovieRepository.getSimilarMovies(
+            id,
+            language = BaseActivity.dLocale.toLanguageTag(),
+            onSuccess = ::getList,
             onError = ::onError
         )
     }
@@ -30,7 +55,7 @@ class MoviePresenterImpl(private val movieActivityListener: MovieActivityListene
         )
     }
 
-    override fun rateMovie(id: Int, rate:Float) {
+    override fun rateMovie(id: Int, rate: Float) {
         MovieRepository.rateMovie(
             id,
             rate,
@@ -47,8 +72,12 @@ class MoviePresenterImpl(private val movieActivityListener: MovieActivityListene
         movieActivityListener.doRate(rate)
     }
 
+    private fun getList(similarList: List<SimilarResult>?) {
+        similarResultList = similarList?.toMutableList()
+    }
 
     private fun onError() {
         movieActivityListener.onError()
     }
+
 }
