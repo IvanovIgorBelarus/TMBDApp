@@ -1,8 +1,6 @@
 package by.itacademy.tmbdapp.presentation.adapters
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +11,6 @@ import by.itacademy.tmbdapp.databinding.FactsRecyclerBinding
 import by.itacademy.tmbdapp.databinding.FeedRecyclerBinding
 import by.itacademy.tmbdapp.databinding.OverviewRecyclerBinding
 import by.itacademy.tmbdapp.databinding.SimilarRecyclerBinding
-import by.itacademy.tmbdapp.fragments.TAG
 import by.itacademy.tmbdapp.presentation.MovieActivityListener
 import by.itacademy.tmbdapp.presentation.MoviePresenterImpl
 import by.itacademy.tmbdapp.uimodel.UIMovieModel
@@ -109,7 +106,6 @@ class MovieAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
 
     inner class FactsViewHolder(private val binding: FactsRecyclerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
         fun bind(item: UIMovieModel.Facts) {
             with(binding) {
                 originalTitle.text = item.originalTitle

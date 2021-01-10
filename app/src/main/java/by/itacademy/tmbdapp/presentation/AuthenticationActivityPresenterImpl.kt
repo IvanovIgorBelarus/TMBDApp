@@ -1,7 +1,6 @@
 package by.itacademy.tmbdapp.presentation
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.api.data.UsersDataJSON
@@ -32,6 +31,5 @@ class AuthenticationActivityPresenterImpl(
     }
 
     private fun onError() {
-        Log.d("1", "Error getRequestToken")
     }
 }

@@ -1,11 +1,9 @@
 package by.itacademy.tmbdapp.presentation
 
 import android.content.Intent
-import android.util.Log
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
-import by.itacademy.tmbdapp.fragments.TAG
 import by.itacademy.tmbdapp.view.AuthenticationActivity
 
 class MyWebChromeClient(private val activity: AppCompatActivity) : WebChromeClient() {
@@ -15,7 +13,6 @@ class MyWebChromeClient(private val activity: AppCompatActivity) : WebChromeClie
             activity.finish()
             activity.startActivity(Intent(activity.baseContext,
                 AuthenticationActivity::class.java))
-            Log.d(TAG, "page allow true!!! $newProgress")
         }
     }
 }

@@ -6,10 +6,8 @@ import by.itacademy.tmbdapp.api.data.AuthenticationResponseJSON
 import by.itacademy.tmbdapp.api.data.GuestSession
 import by.itacademy.tmbdapp.api.data.SessionResponseJSON
 import by.itacademy.tmbdapp.api.data.UsersDataJSON
-
 import by.itacademy.tmbdapp.api.moviesapi.BASE_URL
 import by.itacademy.tmbdapp.fragments.TAG
-import kotlinx.coroutines.delay
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,7 +29,7 @@ object AuthenticationRepository {
     }
 
     fun getRequestToken(
-        onSuccess: (token:String?) -> Unit,
+        onSuccess: (token: String?) -> Unit,
         onError: () -> Unit,
     ) {
         authenticationApi.createRequestToken()
@@ -96,16 +94,16 @@ object AuthenticationRepository {
                 ) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
-                        Log.d(TAG,"createSessionWithLogin: $responseBody")
+                        Log.d(TAG, "createSessionWithLogin: $responseBody")
                         onSuccess.invoke(responseBody?.success)
                     } else {
-                        Log.d(TAG,"createSessionWithLogin fail: $response")
+                        Log.d(TAG, "createSessionWithLogin fail: $response")
                         onError.invoke()
                     }
                 }
 
                 override fun onFailure(call: Call<AuthenticationResponseJSON>, t: Throwable) {
-                    Log.d(TAG,"createSessionWithLogin fail: $t")
+                    Log.d(TAG, "createSessionWithLogin fail: $t")
                     onError.invoke()
                 }
             })
