@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.itacademy.tmbdapp.presentation.CategoryAdapter
+import by.itacademy.tmbdapp.presentation.adapters.CategoryAdapter
 import by.itacademy.tmbdapp.presentation.ListItemActionListener
 import by.itacademy.tmbdapp.view.MovieActivity
 import by.itacademy.tmbdapp.R

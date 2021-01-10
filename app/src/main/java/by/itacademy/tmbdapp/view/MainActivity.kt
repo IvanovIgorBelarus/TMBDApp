@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import by.itacademy.tmbdapp.R
 import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.databinding.ActivityMainBinding
-import by.itacademy.tmbdapp.fragments.CategoryPagerAdapter
+import by.itacademy.tmbdapp.presentation.adapters.CategoryPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : BaseActivity() {
@@ -24,11 +24,11 @@ class MainActivity : BaseActivity() {
         setViewPager()
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         changeConfig()
+        createSession()
     }
 
     override fun onStart() {
         super.onStart()
-        createSession()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

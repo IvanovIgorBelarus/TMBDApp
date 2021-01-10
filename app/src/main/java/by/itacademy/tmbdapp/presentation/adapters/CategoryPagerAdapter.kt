@@ -1,7 +1,13 @@
-package by.itacademy.tmbdapp.fragments
+package by.itacademy.tmbdapp.presentation.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import by.itacademy.tmbdapp.fragments.BaseFragment
+import by.itacademy.tmbdapp.fragments.FAVORITE
+import by.itacademy.tmbdapp.fragments.POPULAR
+import by.itacademy.tmbdapp.fragments.TOP_RATED
+import by.itacademy.tmbdapp.fragments.TRENDING
+import by.itacademy.tmbdapp.fragments.UPCOMING
 
 import by.itacademy.tmbdapp.view.MainActivity
 

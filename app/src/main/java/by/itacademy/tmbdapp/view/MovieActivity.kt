@@ -12,10 +12,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.tmbdapp.R
 import by.itacademy.tmbdapp.api.data.Movie
+import by.itacademy.tmbdapp.api.movieapi.MovieRepository
 import by.itacademy.tmbdapp.databinding.ActivityMovieBinding
 import by.itacademy.tmbdapp.fragments.TAG
 import by.itacademy.tmbdapp.presentation.MovieActivityListener
-import by.itacademy.tmbdapp.presentation.MovieAdapter
+import by.itacademy.tmbdapp.presentation.adapters.MovieAdapter
 import by.itacademy.tmbdapp.presentation.MoviePresenter
 import by.itacademy.tmbdapp.presentation.MoviePresenterImpl
 import by.itacademy.tmbdapp.uimodel.UIMovieModel
@@ -44,16 +45,16 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
         }
         binding.videoView.initialize("AIzaSyBGUgorrux750rLbWjEaO5k8bAzDPWZ2LI", this)
         getId()
+        moviePresenter.getSimilarMoviesFromAPI(id)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun onStart() {
         super.onStart()
         with(moviePresenter) {
-            getMovieFromAPI(id)
             getTrailerFromApi(id)
+            getMovieFromAPI(id)
         }
-        Log.d(TAG, "id=$id")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -88,7 +89,7 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
     }
 
     override fun doRate(rate: Float) {
-        Toast.makeText(this, "You get $rate", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "You get ${rate*2}", Toast.LENGTH_LONG).show()
     }
 
     private fun setVideo(key: String) {

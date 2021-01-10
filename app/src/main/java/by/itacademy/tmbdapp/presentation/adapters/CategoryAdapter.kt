@@ -1,10 +1,11 @@
-package by.itacademy.tmbdapp.presentation
+package by.itacademy.tmbdapp.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.databinding.CategoryRecyclerBinding
+import by.itacademy.tmbdapp.presentation.ListItemActionListener
 import com.bumptech.glide.Glide
 
 class CategoryAdapter(

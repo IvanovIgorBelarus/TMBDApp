@@ -4,12 +4,13 @@ import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.tmbdapp.api.moviesapi.MoviesRepository
 import by.itacademy.tmbdapp.api.data.Movie
-import by.itacademy.tmbdapp.fragments.TAG
+import by.itacademy.tmbdapp.presentation.adapters.CategoryAdapter
+import by.itacademy.tmbdapp.uimodelmapper.MovieMapper
 
 class MoviesPresenterImpl(
     private val category: String,
     private val recyclerView: RecyclerView,
-    private val adapter: CategoryAdapter,
+    private val adapter: CategoryAdapter
 ) : MoviesPresenter {
     private var page = 1
     override fun getListMovies() {

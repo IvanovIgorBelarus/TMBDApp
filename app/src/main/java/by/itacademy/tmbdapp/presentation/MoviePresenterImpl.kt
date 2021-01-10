@@ -1,10 +1,12 @@
 package by.itacademy.tmbdapp.presentation
 
 
+import android.util.Log
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.api.data.MovieTrailer
 import by.itacademy.tmbdapp.api.data.SimilarResult
 import by.itacademy.tmbdapp.api.movieapi.MovieRepository
+import by.itacademy.tmbdapp.fragments.TAG
 import by.itacademy.tmbdapp.uimodel.UIMovieModel
 import by.itacademy.tmbdapp.uimodelmapper.FeedItemMapper
 import by.itacademy.tmbdapp.uimodelmapper.OverViewMapper
@@ -24,7 +26,10 @@ class MoviePresenterImpl(
         val list = mutableListOf<UIMovieModel>()
         list.add(feedItemMapper.invoke(movie))
         list.add(overViewMapper.invoke(movie))
-        list.add(similarMoviesMapper.invoke(similarResultList))
+        if (similarResultList!=null) {
+            list.add(similarMoviesMapper.invoke(similarResultList))
+        }
+        Log.d(TAG, "UIMODELSize=${list.size}")
         movieActivityListener.setValue(list.toList())
     }
 
@@ -35,10 +40,9 @@ class MoviePresenterImpl(
             onSuccess = ::getMovie,
             onError = ::onError
         )
-        getSimilarMoviesFromAPI(id)
     }
 
-    private fun getSimilarMoviesFromAPI(id: Int) {
+    override fun getSimilarMoviesFromAPI(id: Int) {
         MovieRepository.getSimilarMovies(
             id,
             language = BaseActivity.dLocale.toLanguageTag(),
@@ -74,6 +78,7 @@ class MoviePresenterImpl(
 
     private fun getList(similarList: List<SimilarResult>?) {
         similarResultList = similarList?.toMutableList()
+        Log.d(TAG, "similarResultList=${similarResultList?.size}")
     }
 
     private fun onError() {

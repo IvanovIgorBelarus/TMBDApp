@@ -30,4 +30,5 @@
     <string name="message">To change the settings you need to restart the application</string>
     <string name="main_activity_toast">You enter as a Guest</string>
     <string name="auth_text">Enter username and password</string>
+    <string name="similar_films">Similar movies:</string>
 </resources>

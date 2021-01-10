@@ -6,6 +6,7 @@ import by.itacademy.tmbdapp.api.data.MovieTrailer
 import by.itacademy.tmbdapp.api.data.RateValueJSON
 import by.itacademy.tmbdapp.api.data.SimilarMoviesJSON
 import by.itacademy.tmbdapp.api.data.SimilarResult
+import by.itacademy.tmbdapp.fragments.TAG
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback

@@ -14,66 +14,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/videoView"/>
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/title"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:singleLine="false"-->
-    <!--        android:text="@string/films"-->
-    <!--        android:textColor="@color/textColor"-->
-    <!--        android:textSize="20sp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toEndOf="@+id/poster"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/videoView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"/>
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/releaseDate"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:textColor="@color/textColor"-->
-    <!--        android:textSize="15dp"-->
-    <!--        app:layout_constraintStart_toEndOf="@+id/poster"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/title"-->
-    <!--        tools:ignore="SpUsage" />-->
-
-    <!--    <RatingBar-->
-    <!--        android:id="@+id/rating"-->
-    <!--        style="@style/Widget.AppCompat.RatingBar.Indicator"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:clickable="true"-->
-    <!--        android:focusable="true"-->
-    <!--        android:isIndicator="false"-->
-    <!--        app:layout_constraintBottom_toBottomOf="@+id/poster"-->
-    <!--        app:layout_constraintStart_toEndOf="@+id/poster" />-->
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/genres"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="8dp"-->
-    <!--        android:textColor="@color/textColor"-->
-    <!--        android:textSize="16sp"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/poster"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/rating" />-->
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/overview"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="8dp"-->
-    <!--        android:text="@string/films"-->
-    <!--        android:textColor="@color/textColor"-->
-    <!--        android:textSize="18sp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/poster"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/genres" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
