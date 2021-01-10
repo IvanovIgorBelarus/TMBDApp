@@ -1,5 +1,6 @@
 package by.itacademy.tmbdapp.presentation.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.tmbdapp.R
+import by.itacademy.tmbdapp.databinding.EmptyRecyclerBinding
+import by.itacademy.tmbdapp.databinding.FactsRecyclerBinding
 import by.itacademy.tmbdapp.databinding.FeedRecyclerBinding
 import by.itacademy.tmbdapp.databinding.OverviewRecyclerBinding
 import by.itacademy.tmbdapp.databinding.SimilarRecyclerBinding
@@ -27,7 +30,13 @@ class MovieAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
             R.layout.overview_recycler -> OverViewHolder(OverviewRecyclerBinding.inflate(inflater,
                 parent,
                 false))
-            else -> SimilarViewHolder(SimilarRecyclerBinding.inflate(inflater, parent, false))
+            R.layout.similar_recycler -> SimilarViewHolder(SimilarRecyclerBinding.inflate(inflater,
+                parent,
+                false))
+            R.layout.facts_recycler -> FactsViewHolder(FactsRecyclerBinding.inflate(inflater,
+                parent,
+                false))
+            else -> EmptyViewHolder(EmptyRecyclerBinding.inflate(inflater, parent, false))
         }
     }
 
@@ -37,6 +46,7 @@ class MovieAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
             is FeedViewHolder -> holder.bind(item as UIMovieModel.FeedItem)
             is OverViewHolder -> holder.bind(item as UIMovieModel.OverView)
             is SimilarViewHolder -> holder.bind(item as UIMovieModel.SimilarMovies)
+            is FactsViewHolder -> holder.bind(item as UIMovieModel.Facts)
         }
     }
 
@@ -46,7 +56,9 @@ class MovieAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
         return when (dataList[position]) {
             is UIMovieModel.FeedItem -> R.layout.feed_recycler
             is UIMovieModel.OverView -> R.layout.overview_recycler
-            else -> R.layout.similar_recycler
+            is UIMovieModel.SimilarMovies -> R.layout.similar_recycler
+            is UIMovieModel.Facts -> R.layout.facts_recycler
+            else -> R.layout.empty_recycler
         }
     }
 
@@ -86,7 +98,6 @@ class MovieAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
     inner class SimilarViewHolder(private val binding: SimilarRecyclerBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: UIMovieModel.SimilarMovies) {
-            Log.d(TAG,"SimilarViewHolder size=${item.list?.size}")
             val similarAdapter = PosterAdapter()
             binding.similarRecycler.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -94,5 +105,24 @@ class MovieAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
             }
             similarAdapter.update(item.list?.toList())
         }
+    }
+
+    inner class FactsViewHolder(private val binding: FactsRecyclerBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
+        fun bind(item: UIMovieModel.Facts) {
+            with(binding) {
+                originalTitle.text = item.originalTitle
+                originalLanguage.text = item.originalLanguage
+                budget.text = "${item.budget} $"
+                revenue.text = "${item.revenue} $"
+                homePage.text = item.homepage
+            }
+        }
+    }
+
+    inner class EmptyViewHolder(private val binding: EmptyRecyclerBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind() {}
     }
 }

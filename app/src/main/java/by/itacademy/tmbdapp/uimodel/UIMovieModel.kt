@@ -12,4 +12,11 @@ sealed class UIMovieModel {
 
     class OverView(val overView: String) : UIMovieModel()
     class SimilarMovies(val list: MutableList<String>?) : UIMovieModel()
+    class Facts(
+        val originalTitle: String,
+        val originalLanguage: String,
+        val budget: Int,
+        val revenue: Int,
+        val homepage: String,
+    ) : UIMovieModel()
 }

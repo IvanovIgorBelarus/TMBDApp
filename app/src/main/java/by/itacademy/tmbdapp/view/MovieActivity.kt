@@ -5,20 +5,17 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.tmbdapp.R
 import by.itacademy.tmbdapp.api.data.Movie
-import by.itacademy.tmbdapp.api.movieapi.MovieRepository
 import by.itacademy.tmbdapp.databinding.ActivityMovieBinding
-import by.itacademy.tmbdapp.fragments.TAG
 import by.itacademy.tmbdapp.presentation.MovieActivityListener
-import by.itacademy.tmbdapp.presentation.adapters.MovieAdapter
 import by.itacademy.tmbdapp.presentation.MoviePresenter
 import by.itacademy.tmbdapp.presentation.MoviePresenterImpl
+import by.itacademy.tmbdapp.presentation.adapters.MovieAdapter
 import by.itacademy.tmbdapp.uimodel.UIMovieModel
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -73,9 +70,6 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
             R.id.userInfo -> {
                 startActivity(Intent(this, RatingActivity::class.java))
             }
-            R.id.refresh -> {
-
-            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -89,7 +83,7 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
     }
 
     override fun doRate(rate: Float) {
-        Toast.makeText(this, "You get ${rate*2}", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "You get ${rate * 2}", Toast.LENGTH_LONG).show()
     }
 
     private fun setVideo(key: String) {

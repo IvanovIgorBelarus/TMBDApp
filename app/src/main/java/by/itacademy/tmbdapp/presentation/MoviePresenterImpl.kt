@@ -1,13 +1,11 @@
 package by.itacademy.tmbdapp.presentation
 
-
-import android.util.Log
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.api.data.MovieTrailer
 import by.itacademy.tmbdapp.api.data.SimilarResult
 import by.itacademy.tmbdapp.api.movieapi.MovieRepository
-import by.itacademy.tmbdapp.fragments.TAG
 import by.itacademy.tmbdapp.uimodel.UIMovieModel
+import by.itacademy.tmbdapp.uimodelmapper.FactsMapper
 import by.itacademy.tmbdapp.uimodelmapper.FeedItemMapper
 import by.itacademy.tmbdapp.uimodelmapper.OverViewMapper
 import by.itacademy.tmbdapp.uimodelmapper.SimilarMoviesMapper
@@ -18,6 +16,7 @@ class MoviePresenterImpl(
     private val feedItemMapper: FeedItemMapper = FeedItemMapper(),
     private val overViewMapper: OverViewMapper = OverViewMapper(),
     private val similarMoviesMapper: SimilarMoviesMapper = SimilarMoviesMapper(),
+    private val factsMapper: FactsMapper = FactsMapper(),
 ) :
     MoviePresenter {
     private var similarResultList: MutableList<SimilarResult>? = null
@@ -26,10 +25,10 @@ class MoviePresenterImpl(
         val list = mutableListOf<UIMovieModel>()
         list.add(feedItemMapper.invoke(movie))
         list.add(overViewMapper.invoke(movie))
-        if (similarResultList!=null) {
+        if (similarResultList != null) {
             list.add(similarMoviesMapper.invoke(similarResultList))
         }
-        Log.d(TAG, "UIMODELSize=${list.size}")
+        list.add(factsMapper.invoke(movie))
         movieActivityListener.setValue(list.toList())
     }
 
@@ -69,7 +68,9 @@ class MoviePresenterImpl(
     }
 
     private fun getMovieTrailer(movieTrailer: MovieTrailer) {
-        movieActivityListener.setTrailer(movieTrailer.results[0].key)
+        if (movieTrailer.results.isNotEmpty()) {
+            movieActivityListener.setTrailer(movieTrailer.results[0].key)
+        }
     }
 
     private fun doRate(rate: Float) {
@@ -78,7 +79,6 @@ class MoviePresenterImpl(
 
     private fun getList(similarList: List<SimilarResult>?) {
         similarResultList = similarList?.toMutableList()
-        Log.d(TAG, "similarResultList=${similarResultList?.size}")
     }
 
     private fun onError() {
