@@ -16,12 +16,14 @@ class AuthenticationActivityPresenterImpl(
             onError = ::onError
         )
     }
+
     override fun getRequestTokenFromApi() {
         AuthenticationRepository.getRequestToken(
             onSuccess = ::getRequestToken,
             onError = ::onError
         )
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getRequestToken(token: String?) {
     }

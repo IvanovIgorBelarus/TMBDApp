@@ -5,11 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.itacademy.tmbdapp.R
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.databinding.ActivityMovieBinding
 import by.itacademy.tmbdapp.presentation.MovieActivityListener
@@ -20,7 +17,7 @@ import by.itacademy.tmbdapp.uimodel.UIMovieModel
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
-import java.util.*
+import java.util.Locale
 
 
 class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
@@ -42,36 +39,12 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
         }
         binding.videoView.initialize("AIzaSyBGUgorrux750rLbWjEaO5k8bAzDPWZ2LI", this)
         getId()
-        moviePresenter.getSimilarMoviesFromAPI(id)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-    }
-
-    override fun onStart() {
-        super.onStart()
         with(moviePresenter) {
+            getSimilarMoviesFromAPI(id)
             getTrailerFromApi(id)
             getMovieFromAPI(id)
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.authentication -> {
-                startActivity(Intent(this, AccessActivity::class.java))
-            }
-            R.id.userSetting -> {
-                startActivity(Intent(this, SettingsActivity::class.java))
-            }
-            R.id.userInfo -> {
-                startActivity(Intent(this, RatingActivity::class.java))
-            }
-        }
-        return super.onOptionsItemSelected(item)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun setValue(list: List<UIMovieModel>) {

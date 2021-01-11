@@ -4,6 +4,7 @@ package by.itacademy.tmbdapp.api.authenticationapi
 import by.itacademy.tmbdapp.api.data.AuthenticationJSON
 import by.itacademy.tmbdapp.api.data.AuthenticationResponseJSON
 import by.itacademy.tmbdapp.api.data.GuestSession
+import by.itacademy.tmbdapp.api.data.SessionJSON
 import by.itacademy.tmbdapp.api.data.SessionResponseJSON
 import by.itacademy.tmbdapp.api.data.UsersDataJSON
 import by.itacademy.tmbdapp.api.moviesapi.API_KEY
@@ -33,6 +34,6 @@ interface AuthenticationApi {
     @POST("authentication/session/new")
     fun createSession(
         @Query("api_key") apiKey: String = API_KEY,
-        @Body value: String?
+        @Body value: SessionJSON,
     ): Call<SessionResponseJSON>
 }

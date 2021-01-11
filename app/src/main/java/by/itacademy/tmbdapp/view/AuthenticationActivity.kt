@@ -3,10 +3,10 @@ package by.itacademy.tmbdapp.view
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import by.itacademy.tmbdapp.api.accountapi.AccountRepository
 import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.api.data.UsersDataJSON
 import by.itacademy.tmbdapp.databinding.ActivityAuthenticationBinding
-import by.itacademy.tmbdapp.fragments.SettingsDialog
 import by.itacademy.tmbdapp.presentation.AuthenticationActivityListener
 import by.itacademy.tmbdapp.presentation.AuthenticationActivityPresenter
 import by.itacademy.tmbdapp.presentation.AuthenticationActivityPresenterImpl
@@ -41,10 +41,9 @@ class AuthenticationActivity : BaseActivity(), AuthenticationActivityListener {
         }
     }
 
-    private fun createDialog() {
-        val dialog = SettingsDialog()
-        val manager = supportFragmentManager
-        dialog.show(manager, "dialog")
+    override fun onStop() {
+        super.onStop()
+        AccountRepository.getAccountRatedMovies(AuthenticationRepository.sessionId)
     }
 }
 

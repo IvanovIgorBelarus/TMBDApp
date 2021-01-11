@@ -9,7 +9,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 const val BASE_URL = "https://api.themoviedb.org/3/"
-const val AUTHENTICATION_URL = "https://www.themoviedb.org/authenticate/"
 
 object MoviesRepository {
     private val moviesApi: MoviesApi

@@ -6,21 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.itacademy.tmbdapp.presentation.adapters.CategoryAdapter
-import by.itacademy.tmbdapp.presentation.ListItemActionListener
-import by.itacademy.tmbdapp.view.MovieActivity
 import by.itacademy.tmbdapp.R
-import by.itacademy.tmbdapp.presentation.MoviesPresenter
-import by.itacademy.tmbdapp.presentation.MoviesPresenterImpl
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.databinding.FragmentBaseBinding
+import by.itacademy.tmbdapp.presentation.ListItemActionListener
+import by.itacademy.tmbdapp.presentation.MoviesPresenter
+import by.itacademy.tmbdapp.presentation.MoviesPresenterImpl
+import by.itacademy.tmbdapp.presentation.adapters.CategoryAdapter
+import by.itacademy.tmbdapp.view.MovieActivity
 
 const val POPULAR = "popular"
 const val TRENDING = "now_playing"
 const val UPCOMING = "upcoming"
 const val TOP_RATED = "top_rated"
 const val FAVORITE = "favorite"
-const val TAG = "mynameisigor"
+
 class BaseFragment : Fragment(), ListItemActionListener {
     private lateinit var categoryFragment: String
     private lateinit var binding: FragmentBaseBinding

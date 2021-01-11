@@ -15,8 +15,8 @@ sealed class UIMovieModel {
     class Facts(
         val originalTitle: String,
         val originalLanguage: String,
-        val budget: Int,
-        val revenue: Int,
+        val budget: String,
+        val revenue: String,
         val homepage: String,
     ) : UIMovieModel()
 }

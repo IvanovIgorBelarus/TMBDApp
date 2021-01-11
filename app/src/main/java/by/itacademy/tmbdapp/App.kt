@@ -16,6 +16,6 @@ class App : Application() {
             language = "ru"
         }
         BaseActivity.dLocale = Locale(language)
-        MovieActivity.dLocale=Locale(language)
+        MovieActivity.dLocale = Locale(language)
     }
 }

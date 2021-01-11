@@ -2,7 +2,8 @@ package by.itacademy.tmbdapp.api.data
 
 import com.google.gson.annotations.SerializedName
 
-data class GetMoviesResponse (
+data class GetMoviesResponse(
     @SerializedName("page") val page: Int,
     @SerializedName("results") val movies: List<Movie>,
-    @SerializedName("total_pages") val pages: Int)
+    @SerializedName("total_pages") val pages: Int,
+)

@@ -5,14 +5,16 @@
     android:background="@color/colorBackground"
     android:orientation="vertical"
     android:padding="8dp">
+
     <TextView
-        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
         android:text="@string/similar_films"
         android:textColor="@color/textColor"
         android:textSize="16sp"
-        android:layout_marginBottom="6dp"/>
+        android:textStyle="bold" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/similarRecycler"
         android:layout_width="match_parent"

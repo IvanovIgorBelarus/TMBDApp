@@ -1,8 +1,8 @@
 package by.itacademy.tmbdapp.api.data
 
-data class SimilarMoviesJSON(
+data class AccountRatedMovies(
     val page: Int,
-    val results: List<SimilarResult>,
+    val results: List<AccountRatedMoviesResult>,
     val total_pages: Int,
     val total_results: Int,
 )

@@ -55,7 +55,6 @@ class MovieAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
             is UIMovieModel.OverView -> R.layout.overview_recycler
             is UIMovieModel.SimilarMovies -> R.layout.similar_recycler
             is UIMovieModel.Facts -> R.layout.facts_recycler
-            else -> R.layout.empty_recycler
         }
     }
 
@@ -110,8 +109,8 @@ class MovieAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
             with(binding) {
                 originalTitle.text = item.originalTitle
                 originalLanguage.text = item.originalLanguage
-                budget.text = "${item.budget} $"
-                revenue.text = "${item.revenue} $"
+                budget.text = item.budget
+                revenue.text = item.revenue
                 homePage.text = item.homepage
             }
         }

@@ -5,10 +5,10 @@ import by.itacademy.tmbdapp.api.data.MovieTrailer
 import by.itacademy.tmbdapp.api.data.SimilarResult
 import by.itacademy.tmbdapp.api.movieapi.MovieRepository
 import by.itacademy.tmbdapp.uimodel.UIMovieModel
-import by.itacademy.tmbdapp.uimodelmapper.FactsMapper
-import by.itacademy.tmbdapp.uimodelmapper.FeedItemMapper
-import by.itacademy.tmbdapp.uimodelmapper.OverViewMapper
-import by.itacademy.tmbdapp.uimodelmapper.SimilarMoviesMapper
+import by.itacademy.tmbdapp.uimodel.uimodelmapper.FactsMapper
+import by.itacademy.tmbdapp.uimodel.uimodelmapper.FeedItemMapper
+import by.itacademy.tmbdapp.uimodel.uimodelmapper.OverViewMapper
+import by.itacademy.tmbdapp.uimodel.uimodelmapper.SimilarMoviesMapper
 import by.itacademy.tmbdapp.view.BaseActivity
 
 class MoviePresenterImpl(

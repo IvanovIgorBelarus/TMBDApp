@@ -1,13 +1,12 @@
 package by.itacademy.tmbdapp.api.authenticationapi
 
-import android.util.Log
 import by.itacademy.tmbdapp.api.data.AuthenticationJSON
 import by.itacademy.tmbdapp.api.data.AuthenticationResponseJSON
 import by.itacademy.tmbdapp.api.data.GuestSession
+import by.itacademy.tmbdapp.api.data.SessionJSON
 import by.itacademy.tmbdapp.api.data.SessionResponseJSON
 import by.itacademy.tmbdapp.api.data.UsersDataJSON
 import by.itacademy.tmbdapp.api.moviesapi.BASE_URL
-import by.itacademy.tmbdapp.fragments.TAG
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,8 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 object AuthenticationRepository {
     private val authenticationApi: AuthenticationApi
     var requestToken: String? = null
-    var guest_session_id: String? = null
-    var session_id: String? = null
+    var guestSessionId: String? = null
+    var sessionId: String? = null
 
     init {
         val retrofit = Retrofit.Builder()
@@ -42,7 +41,6 @@ object AuthenticationRepository {
                         val responseBody = response.body()
                         if (responseBody != null) {
                             requestToken = responseBody.request_token
-                            Log.d(TAG, "createRequestToken: requestToken=$requestToken")
                             onSuccess.invoke(requestToken)
                         }
                     } else {
@@ -69,7 +67,7 @@ object AuthenticationRepository {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null) {
-                            guest_session_id = responseBody.guest_session_id
+                            guestSessionId = responseBody.guest_session_id
                             onSuccess
                         }
                     }
@@ -94,16 +92,13 @@ object AuthenticationRepository {
                 ) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
-                        Log.d(TAG, "createSessionWithLogin: $responseBody")
                         onSuccess.invoke(responseBody?.success)
                     } else {
-                        Log.d(TAG, "createSessionWithLogin fail: $response")
                         onError.invoke()
                     }
                 }
 
                 override fun onFailure(call: Call<AuthenticationResponseJSON>, t: Throwable) {
-                    Log.d(TAG, "createSessionWithLogin fail: $t")
                     onError.invoke()
                 }
             })
@@ -111,18 +106,14 @@ object AuthenticationRepository {
 
     fun createSession(
     ) {
-        authenticationApi.createSession(value = requestToken)
+        authenticationApi.createSession(value = SessionJSON(requestToken))
             .enqueue(object : Callback<SessionResponseJSON> {
                 override fun onResponse(
                     call: Call<SessionResponseJSON>,
                     response: Response<SessionResponseJSON>,
                 ) {
-                    Log.d(TAG, "createSession: requestSessionToken=$requestToken")
                     if (response.isSuccessful) {
-                        session_id = response.body()?.session_id
-                        Log.d(TAG, "session_id=$session_id")
-                    } else {
-                        Log.d(TAG, "session is fail $response")
+                        sessionId = response.body()?.session_id
                     }
                 }
 

@@ -27,10 +27,6 @@ class MainActivity : BaseActivity() {
         createSession()
     }
 
-    override fun onStart() {
-        super.onStart()
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -45,7 +41,11 @@ class MainActivity : BaseActivity() {
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
             R.id.userInfo -> {
-                startActivity(Intent(this, RatingActivity::class.java))
+                if (AuthenticationRepository.sessionId != null) {
+                    startActivity(Intent(this, AccountActivity::class.java))
+                } else {
+                    Toast.makeText(this, "you must Sign in!!!", Toast.LENGTH_SHORT).show()
+                }
             }
         }
         return super.onOptionsItemSelected(item)

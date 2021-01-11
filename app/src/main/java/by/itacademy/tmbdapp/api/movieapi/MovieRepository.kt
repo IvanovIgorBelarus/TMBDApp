@@ -1,5 +1,6 @@
 package by.itacademy.tmbdapp.api.movieapi
 
+import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.api.data.MovieTrailer
 import by.itacademy.tmbdapp.api.data.RateValueJSON
@@ -113,22 +114,46 @@ object MovieRepository {
         onSuccess: (rate: Float) -> Unit,
         onError: () -> Unit,
     ) {
-        movieApi.rateMovie(id = id, value = RateValueJSON(rate))
-            .enqueue(object : Callback<ResponseBody> {
-                override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>,
-                ) {
-                    if (response.isSuccessful) {
-                        onSuccess.invoke(rate)
-                    } else {
+        if (AuthenticationRepository.sessionId != null) {
+            movieApi.rateMovieAsUser(id = id,
+                value = RateValueJSON(rate),
+                session = AuthenticationRepository.sessionId)
+                .enqueue(object : Callback<ResponseBody> {
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>,
+                    ) {
+                        if (response.isSuccessful) {
+                            onSuccess.invoke(rate)
+                        } else {
+                            onError.invoke()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                         onError.invoke()
                     }
-                }
+                })
+        } else {
+            movieApi.rateMovieAsGuest(id = id,
+                value = RateValueJSON(rate),
+                session = AuthenticationRepository.guestSessionId)
+                .enqueue(object : Callback<ResponseBody> {
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>,
+                    ) {
+                        if (response.isSuccessful) {
+                            onSuccess.invoke(rate)
+                        } else {
+                            onError.invoke()
+                        }
+                    }
 
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    onError.invoke()
-                }
-            })
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                        onError.invoke()
+                    }
+                })
+        }
     }
 }
