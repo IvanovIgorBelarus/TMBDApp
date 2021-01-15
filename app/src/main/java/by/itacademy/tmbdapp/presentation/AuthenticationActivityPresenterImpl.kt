@@ -1,7 +1,5 @@
 package by.itacademy.tmbdapp.presentation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.api.data.UsersDataJSON
 
@@ -18,14 +16,7 @@ class AuthenticationActivityPresenterImpl(
     }
 
     override fun getRequestTokenFromApi() {
-        AuthenticationRepository.getRequestToken(
-            onSuccess = ::getRequestToken,
-            onError = ::onError
-        )
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun getRequestToken(token: String?) {
+        AuthenticationRepository.getRequestToken()
     }
 
     private fun createSessionWithLogin(isCreate: Boolean?) {

@@ -8,6 +8,7 @@ import by.itacademy.tmbdapp.api.data.SessionJSON
 import by.itacademy.tmbdapp.api.data.SessionResponseJSON
 import by.itacademy.tmbdapp.api.data.UsersDataJSON
 import by.itacademy.tmbdapp.api.moviesapi.API_KEY
+import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -18,7 +19,7 @@ interface AuthenticationApi {
     @GET("authentication/token/new")
     fun createRequestToken(
         @Query("api_key") apiKey: String = API_KEY,
-    ): Call<AuthenticationJSON>
+    ): Single<AuthenticationJSON>
 
     @GET("authentication/guest_session/new")
     fun createGuestSession(

@@ -1,58 +1,27 @@
 package by.itacademy.tmbdapp.api.authenticationapi
 
-import by.itacademy.tmbdapp.api.data.AuthenticationJSON
+import by.itacademy.tmbdapp.api.RetrofitRepository
 import by.itacademy.tmbdapp.api.data.AuthenticationResponseJSON
 import by.itacademy.tmbdapp.api.data.GuestSession
 import by.itacademy.tmbdapp.api.data.SessionJSON
 import by.itacademy.tmbdapp.api.data.SessionResponseJSON
 import by.itacademy.tmbdapp.api.data.UsersDataJSON
-import by.itacademy.tmbdapp.api.moviesapi.BASE_URL
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 object AuthenticationRepository {
-    private val authenticationApi: AuthenticationApi
+    private val authenticationApi: AuthenticationApi = RetrofitRepository.getRetrofit().create(AuthenticationApi::class.java)
     var requestToken: String? = null
     var guestSessionId: String? = null
     var sessionId: String? = null
 
-    init {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        authenticationApi = retrofit.create(AuthenticationApi::class.java)
-    }
-
-    fun getRequestToken(
-        onSuccess: (token: String?) -> Unit,
-        onError: () -> Unit,
-    ) {
-        authenticationApi.createRequestToken()
-            .enqueue(object : Callback<AuthenticationJSON> {
-                override fun onResponse(
-                    call: Call<AuthenticationJSON>,
-                    response: Response<AuthenticationJSON>,
-                ) {
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()
-                        if (responseBody != null) {
-                            requestToken = responseBody.request_token
-                            onSuccess.invoke(requestToken)
-                        }
-                    } else {
-                        onError.invoke()
-                    }
-                }
-
-                override fun onFailure(call: Call<AuthenticationJSON>, t: Throwable) {
-                    onError.invoke()
-                }
-            })
-    }
+    fun getRequestToken() = authenticationApi.createRequestToken()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe { result -> requestToken = result.request_token }
 
     fun createGuestSession(
         onSuccess: Unit,

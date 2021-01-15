@@ -1,26 +1,30 @@
 package by.itacademy.tmbdapp.presentation
 
 import by.itacademy.tmbdapp.api.accountapi.AccountRepository
-import by.itacademy.tmbdapp.api.data.Account
+import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.model.AccountModelMapper
+import by.itacademy.tmbdapp.model.AccountRatePathMapper
+import by.itacademy.tmbdapp.presentation.adapters.PosterAdapter
+import io.reactivex.android.schedulers.AndroidSchedulers
 
 class AccountPresenterImpl(
     private val accountActivityListener: AccountActivityListener,
     private val accountModelMapper: AccountModelMapper = AccountModelMapper(),
-
-    ) : AccountPresenter {
+    private val accountRatePathMapper: AccountRatePathMapper = AccountRatePathMapper(),
+) : AccountPresenter {
     override fun getAccountDetailsApi(sessionId: String?) {
-        AccountRepository.getAccountDetails(
-            sessionId,
-            onSuccess = ::getDetails,
-            onError = ::onError
-        )
+        AccountRepository.getAccountDetails(sessionId)
+            .map { item -> accountModelMapper.invoke(item) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { result -> accountActivityListener.getDetails(result) }
     }
 
-    private fun getDetails(account: Account?) {
-        accountActivityListener.getDetails(accountModelMapper.invoke(account))
+    override fun getAccountRatedMoviesList(sessionId: String?, posterAdapter: PosterAdapter) {
+        AccountRepository.getAccountRatedMovies(AuthenticationRepository.sessionId)
+            .map { item -> accountRatePathMapper.invoke(item.results) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { result ->
+                posterAdapter.update(result)
+            }
     }
-
-    private fun onError() {}
-
 }

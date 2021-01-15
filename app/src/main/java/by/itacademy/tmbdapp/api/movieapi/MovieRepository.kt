@@ -1,5 +1,6 @@
 package by.itacademy.tmbdapp.api.movieapi
 
+import by.itacademy.tmbdapp.api.RetrofitRepository
 import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.api.data.MovieTrailer
@@ -10,21 +11,10 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-const val BASE_URL = "https://api.themoviedb.org/3/"
 
 object MovieRepository {
-    private val movieApi: MovieApi
-
-    init {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        movieApi = retrofit.create(MovieApi::class.java)
-    }
+    private val movieApi: MovieApi = RetrofitRepository.getRetrofit().create(MovieApi::class.java)
 
     fun getMovie(
         id: Int,
