@@ -24,17 +24,17 @@ interface AuthenticationApi {
     @GET("authentication/guest_session/new")
     fun createGuestSession(
         @Query("api_key") apiKey: String = API_KEY,
-    ): Call<GuestSession>
+    ): Single<GuestSession>
 
     @POST("authentication/token/validate_with_login")
     fun createSessionWithLogin(
         @Query("api_key") apiKey: String = API_KEY,
         @Body usersDataJSON: UsersDataJSON,
-    ): Call<AuthenticationResponseJSON>
+    ): Single<AuthenticationResponseJSON>
 
     @POST("authentication/session/new")
     fun createSession(
         @Query("api_key") apiKey: String = API_KEY,
         @Body value: SessionJSON,
-    ): Call<SessionResponseJSON>
+    ): Single<SessionResponseJSON>
 }

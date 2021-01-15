@@ -9,12 +9,12 @@ object AccountRepository {
 
 
     fun getAccountDetails(sessionId: String?) = accountApi.getAccountDetails(sessionId = sessionId)
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(Schedulers.newThread())
 
 
     fun getAccountRatedMovies(sessionId: String?) =
         accountApi.getAccountRatedMovies(sessionId = sessionId)
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(Schedulers.newThread())
 }
 
 

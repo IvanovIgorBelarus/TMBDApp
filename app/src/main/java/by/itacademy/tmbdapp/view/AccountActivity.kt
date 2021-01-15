@@ -23,9 +23,9 @@ class AccountActivity : BaseActivity(), AccountActivityListener {
         super.onCreate(savedInstanceState)
         binding = ActivityAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if (AuthenticationRepository.sessionId != null) {
-            accountPresenter.getAccountDetailsApi(AuthenticationRepository.sessionId)
-            accountPresenter.getAccountRatedMoviesList(AuthenticationRepository.sessionId, posterAdapter)
+        if (AuthenticationRepository.getSessionId() != null) {
+            accountPresenter.getAccountDetailsApi(AuthenticationRepository.getSessionId())
+            accountPresenter.getAccountRatedMoviesList(AuthenticationRepository.getSessionId(), posterAdapter)
         }
         binding.posterRecycler.apply {
             layoutManager =

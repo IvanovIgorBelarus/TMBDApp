@@ -8,21 +8,13 @@ class AuthenticationActivityPresenterImpl(
 ) : AuthenticationActivityPresenter {
 
     override fun createSessionWithLoginFromApi(userDataJSON: UsersDataJSON) {
-        AuthenticationRepository.createSessionWithLogin(
-            userDataJSON,
-            onSuccess = ::createSessionWithLogin,
-            onError = ::onError
-        )
+        AuthenticationRepository.createSessionWithLogin(userDataJSON)
+            .subscribe{item->authenticationActivityListener.createSessionWithLogin(item.success)
+        }
     }
 
     override fun getRequestTokenFromApi() {
         AuthenticationRepository.getRequestToken()
     }
 
-    private fun createSessionWithLogin(isCreate: Boolean?) {
-        authenticationActivityListener.createSessionWithLogin(isCreate)
-    }
-
-    private fun onError() {
-    }
 }

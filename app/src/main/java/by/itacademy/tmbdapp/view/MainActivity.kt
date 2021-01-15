@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -16,7 +17,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var isGuest = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -41,7 +41,7 @@ class MainActivity : BaseActivity() {
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
             R.id.userInfo -> {
-                if (AuthenticationRepository.sessionId != null) {
+                if (AuthenticationRepository.getSessionId()!= null) {
                     startActivity(Intent(this, AccountActivity::class.java))
                 } else {
                     Toast.makeText(this, "you must Sign in!!!", Toast.LENGTH_SHORT).show()
@@ -52,9 +52,8 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setViewPager() {
-        setContentView(binding.root)
         val viewPager2 = binding.viewPager2
-        viewPager2.adapter = CategoryPagerAdapter(this, isGuest)
+        viewPager2.adapter = CategoryPagerAdapter(this)
         val tabs = binding.tabLayout
         TabLayoutMediator(tabs, viewPager2) { tab, position ->
             when (position) {
@@ -68,15 +67,13 @@ class MainActivity : BaseActivity() {
     }
 
     private fun createSession() {
-        if (AuthenticationRepository.requestToken == null) {
-            AuthenticationRepository.createGuestSession(
-                onSuccess = Toast.makeText(this,
-                    getString(R.string.main_activity_toast),
-                    Toast.LENGTH_LONG).show(),
-                onError = ::error
-            )
+        if (AuthenticationRepository.getRequestToken() == null) {
+            AuthenticationRepository.getGuestSessionId()
+            Toast.makeText(this, getString(R.string.main_activity_toast), Toast.LENGTH_LONG)
+                .show()
+            Log.d(by.itacademy.tmbdapp.api.TAG,"createSession getGuestSessionId=${AuthenticationRepository.getGuestSessionId()}")
         } else {
-            AuthenticationRepository.createSession()
+            AuthenticationRepository.getSessionId()
         }
     }
 

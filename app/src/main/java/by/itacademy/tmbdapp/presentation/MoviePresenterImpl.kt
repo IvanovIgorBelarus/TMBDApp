@@ -33,12 +33,17 @@ class MoviePresenterImpl(
     }
 
     override fun getMovieFromAPI(id: Int) {
-        MovieRepository.getMovie(
-            id,
-            language = BaseActivity.dLocale.toLanguageTag(),
-            onSuccess = ::getMovie,
-            onError = ::onError
-        )
+        val list = mutableListOf<UIMovieModel>()
+        MovieRepository.getMovie(id, BaseActivity.dLocale.toLanguageTag())
+            .subscribe { result ->
+                list.add(feedItemMapper.invoke(result))
+                list.add(overViewMapper.invoke(result))
+                if (similarResultList != null) {
+                    list.add(similarMoviesMapper.invoke(similarResultList))
+                }
+                list.add(factsMapper.invoke(result))
+                movieActivityListener.setValue(list.toList())
+            }
     }
 
     override fun getSimilarMoviesFromAPI(id: Int) {

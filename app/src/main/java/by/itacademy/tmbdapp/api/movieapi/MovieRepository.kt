@@ -2,11 +2,12 @@ package by.itacademy.tmbdapp.api.movieapi
 
 import by.itacademy.tmbdapp.api.RetrofitRepository
 import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
-import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.api.data.MovieTrailer
 import by.itacademy.tmbdapp.api.data.RateValueJSON
 import by.itacademy.tmbdapp.api.data.SimilarMoviesJSON
 import by.itacademy.tmbdapp.api.data.SimilarResult
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,33 +17,9 @@ import retrofit2.Response
 object MovieRepository {
     private val movieApi: MovieApi = RetrofitRepository.getRetrofit().create(MovieApi::class.java)
 
-    fun getMovie(
-        id: Int,
-        language: String,
-        onSuccess: (movie: Movie) -> Unit,
-        onError: () -> Unit,
-    ) {
-        movieApi.getMovie(id, language = language)
-            .enqueue(object : Callback<Movie> {
-                override fun onResponse(
-                    call: Call<Movie>,
-                    response: Response<Movie>,
-                ) {
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()
-                        if (responseBody != null) {
-                            onSuccess.invoke(responseBody)
-                        } else {
-                            onError.invoke()
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<Movie>, t: Throwable) {
-                    onError.invoke()
-                }
-            })
-    }
+    fun getMovie(id: Int, language: String) = movieApi.getMovie(id, language = language)
+        .subscribeOn(Schedulers.newThread())
+        .observeOn(AndroidSchedulers.mainThread())
 
     fun getMovieTrailer(
         id: Int,
@@ -104,10 +81,10 @@ object MovieRepository {
         onSuccess: (rate: Float) -> Unit,
         onError: () -> Unit,
     ) {
-        if (AuthenticationRepository.sessionId != null) {
+        if (AuthenticationRepository.getSessionId() != null) {
             movieApi.rateMovieAsUser(id = id,
                 value = RateValueJSON(rate),
-                session = AuthenticationRepository.sessionId)
+                session = AuthenticationRepository.getSessionId())
                 .enqueue(object : Callback<ResponseBody> {
                     override fun onResponse(
                         call: Call<ResponseBody>,
@@ -127,7 +104,7 @@ object MovieRepository {
         } else {
             movieApi.rateMovieAsGuest(id = id,
                 value = RateValueJSON(rate),
-                session = AuthenticationRepository.guestSessionId)
+                session = AuthenticationRepository.getSessionId())
                 .enqueue(object : Callback<ResponseBody> {
                     override fun onResponse(
                         call: Call<ResponseBody>,

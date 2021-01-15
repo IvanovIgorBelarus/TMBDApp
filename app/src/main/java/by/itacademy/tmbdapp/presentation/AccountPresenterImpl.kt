@@ -20,7 +20,7 @@ class AccountPresenterImpl(
     }
 
     override fun getAccountRatedMoviesList(sessionId: String?, posterAdapter: PosterAdapter) {
-        AccountRepository.getAccountRatedMovies(AuthenticationRepository.sessionId)
+        AccountRepository.getAccountRatedMovies(AuthenticationRepository.getSessionId())
             .map { item -> accountRatePathMapper.invoke(item.results) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result ->

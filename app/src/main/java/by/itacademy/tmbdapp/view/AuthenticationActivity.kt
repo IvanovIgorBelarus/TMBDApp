@@ -26,7 +26,7 @@ class AuthenticationActivity : BaseActivity(), AuthenticationActivityListener {
             val name = binding.userName.text.toString()
             val password = binding.userPassword.text.toString()
             authenticationActivityPresenter.createSessionWithLoginFromApi(
-                UsersDataJSON(name, password, AuthenticationRepository.requestToken!!)
+                UsersDataJSON(name, password, AuthenticationRepository.getRequestToken()!!)
             )
             startActivity(Intent(this, MainActivity::class.java))
             finish()
@@ -41,9 +41,5 @@ class AuthenticationActivity : BaseActivity(), AuthenticationActivityListener {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        AccountRepository.getAccountRatedMovies(AuthenticationRepository.sessionId)
-    }
 }
 

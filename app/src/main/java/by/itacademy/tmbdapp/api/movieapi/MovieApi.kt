@@ -5,6 +5,7 @@ import by.itacademy.tmbdapp.api.data.MovieTrailer
 import by.itacademy.tmbdapp.api.data.RateValueJSON
 import by.itacademy.tmbdapp.api.data.SimilarMoviesJSON
 import by.itacademy.tmbdapp.api.moviesapi.API_KEY
+import io.reactivex.Single
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -21,7 +22,7 @@ interface MovieApi {
         @Path("id") id: Int,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String,
-    ): Call<Movie>
+    ): Single<Movie>
 
     @GET("movie/{movie_id}/videos")
     fun getMovieTrailer(

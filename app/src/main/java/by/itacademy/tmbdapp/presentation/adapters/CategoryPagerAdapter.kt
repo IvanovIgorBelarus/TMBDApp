@@ -11,9 +11,9 @@ import by.itacademy.tmbdapp.fragments.UPCOMING
 
 import by.itacademy.tmbdapp.view.MainActivity
 
-class CategoryPagerAdapter(fa: MainActivity, private val isGuest: Boolean) :
+class CategoryPagerAdapter(fa: MainActivity) :
     FragmentStateAdapter(fa) {
-    override fun getItemCount(): Int = createFragmentList(isGuest).size
+    override fun getItemCount(): Int = createFragmentList().size
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> BaseFragment.newInstance(POPULAR)
@@ -25,18 +25,12 @@ class CategoryPagerAdapter(fa: MainActivity, private val isGuest: Boolean) :
         }
     }
 
-    private fun createFragmentList(isGuest: Boolean): List<Fragment> {
-        val fragmentList = mutableListOf<Fragment>().apply {
-            with(BaseFragment) {
-                add(newInstance(POPULAR))
-                add(newInstance(TRENDING))
-                add(newInstance(UPCOMING))
-                add(newInstance(TOP_RATED))
-            }
+    private fun createFragmentList(): List<Fragment> = mutableListOf<Fragment>().apply {
+        with(BaseFragment) {
+            add(newInstance(POPULAR))
+            add(newInstance(TRENDING))
+            add(newInstance(UPCOMING))
+            add(newInstance(TOP_RATED))
         }
-        if (!isGuest) {
-            fragmentList.add(BaseFragment.newInstance(FAVORITE))
-        }
-        return fragmentList
     }
 }
