@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TMBDApp</string>
+    <string name="sign_in">Войти в систему</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="guest">Гость</string>
+    <string name="popular">Популярные</string>
+    <string name="trending">Горячие</string>
+    <string name="upcoming">Ожидаемые</string>
+    <string name="top_rated">Лучшие</string>
+    <string name="watch_list">Мой лист</string>
+    <string name="favorite">Выбрано</string>
+    <string name="exit">Выход</string>
+    <string name="russian">Русский</string>
+    <string name="english">Англиский</string>
+    <string name="light_theme">Светлая тема</string>
+    <string name="dark_theme">Темная тема</string>
+    <string name="total_edits">Всего записей</string>
+    <string name="total_ratings">Всего оценок</string>
+    <string name="rating_review">Обзор рейтинга</string>
+    <string name="films">Фильмы</string>
+    <string name="authentication">Авторизация</string>
+    <string name="login">Имя пользователя</string>
+    <string name="password">пароль</string>
+    <string name="settings">Настройки</string>
+    <string name="user">О пользователе</string>
+    <string name="search">поиск</string>
+    <string name="refresh">Обновить</string>
+    <string name="filter">Фильтр</string>
+    <string name="warning">Внимание!!!</string>
+    <string name="message">для изменения настроек вам необходимо перезапустить приложение</string>
+    <string name="main_activity_toast">Вы вошли как гость</string>
+    <string name="auth_text">Введите имя пользователя и пароль</string>
+    <string name="similar_films">Похожие фильмы:</string>
+    <string name="facts">Факты:</string>
+    <string name="originalTitle">Оригинальное название:</string>
+    <string name="originalLanguage">Оригинальный язык:</string>
+    <string name="budget">Бюджет:</string>
+    <string name="revenue">Сборы:</string>
+    <string name="homepage">Домашняя страница:</string>
+    <string name="rating_movie">Последние отмеченные фильмы:</string>
+</resources>

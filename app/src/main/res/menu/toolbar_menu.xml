@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/authentication"
+        android:title="@string/authentication" />
+    <item
+        android:id="@+id/userSetting"
+        android:title="@string/settings" />
+    <item
+        android:id="@+id/userInfo"
+        android:title="@string/user" />
+    <item
+        android:title="@string/films"
+        app:showAsAction="always" />
+</menu>
