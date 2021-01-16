@@ -17,7 +17,6 @@ import by.itacademy.tmbdapp.uimodel.UIMovieModel
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
-import java.util.Locale
 
 
 class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
@@ -40,11 +39,15 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
         binding.videoView.initialize("AIzaSyBGUgorrux750rLbWjEaO5k8bAzDPWZ2LI", this)
         getId()
         with(moviePresenter) {
-            getSimilarMoviesFromAPI(id)
             getTrailerFromApi(id)
             getMovieFromAPI(id)
         }
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
+
+    override fun onStart() {
+        super.onStart()
+        moviePresenter.getSimilarMoviesFromAPI(id)
     }
 
     override fun setValue(list: List<UIMovieModel>) {
@@ -55,16 +58,12 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
         setVideo(key)
     }
 
-    override fun doRate(rate: Float) {
-        Toast.makeText(this, "You get ${rate * 2}", Toast.LENGTH_LONG).show()
+    override fun doRate() {
+        Toast.makeText(this, "Rate done", Toast.LENGTH_LONG).show()
     }
 
     private fun setVideo(key: String) {
         youtubeKey = key
-    }
-
-    override fun onError() {
-        Toast.makeText(this, "Something wrong", Toast.LENGTH_LONG).show()
     }
 
     private fun getId() {
@@ -91,8 +90,6 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
     }
 
     companion object {
-        var dLocale: Locale = Locale("")
-
         @JvmStatic
         fun startMovieActivity(context: Context?, movie: Movie) =
             Intent(context, MovieActivity::class.java).apply {

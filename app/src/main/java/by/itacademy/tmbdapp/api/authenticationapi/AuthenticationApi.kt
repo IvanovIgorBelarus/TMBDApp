@@ -9,7 +9,6 @@ import by.itacademy.tmbdapp.api.data.SessionResponseJSON
 import by.itacademy.tmbdapp.api.data.UsersDataJSON
 import by.itacademy.tmbdapp.api.moviesapi.API_KEY
 import io.reactivex.Single
-import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

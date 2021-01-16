@@ -1,9 +1,7 @@
 package by.itacademy.tmbdapp.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.itacademy.tmbdapp.api.accountapi.AccountRepository
 import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.databinding.ActivityAccountBinding
 import by.itacademy.tmbdapp.model.AccountModel
@@ -12,7 +10,6 @@ import by.itacademy.tmbdapp.presentation.AccountPresenter
 import by.itacademy.tmbdapp.presentation.AccountPresenterImpl
 import by.itacademy.tmbdapp.presentation.adapters.PosterAdapter
 import com.bumptech.glide.Glide
-import io.reactivex.android.schedulers.AndroidSchedulers
 
 
 class AccountActivity : BaseActivity(), AccountActivityListener {
@@ -25,7 +22,8 @@ class AccountActivity : BaseActivity(), AccountActivityListener {
         setContentView(binding.root)
         if (AuthenticationRepository.getSessionId() != null) {
             accountPresenter.getAccountDetailsApi(AuthenticationRepository.getSessionId())
-            accountPresenter.getAccountRatedMoviesList(AuthenticationRepository.getSessionId(), posterAdapter)
+            accountPresenter.getAccountRatedMoviesList(AuthenticationRepository.getSessionId(),
+                posterAdapter)
         }
         binding.posterRecycler.apply {
             layoutManager =
