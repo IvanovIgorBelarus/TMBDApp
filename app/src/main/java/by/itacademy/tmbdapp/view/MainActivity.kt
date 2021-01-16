@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -68,12 +67,10 @@ class MainActivity : BaseActivity() {
 
     private fun createSession() {
         if (AuthenticationRepository.getRequestToken() == null) {
-            AuthenticationRepository.getGuestSessionId()
-            Toast.makeText(this, getString(R.string.main_activity_toast), Toast.LENGTH_LONG)
-                .show()
-            Log.d(by.itacademy.tmbdapp.api.TAG,"createSession getGuestSessionId=${AuthenticationRepository.getGuestSessionId()}")
+            AuthenticationRepository.createGuestSessionId()
+            Toast.makeText(this, getString(R.string.main_activity_toast), Toast.LENGTH_LONG).show()
         } else {
-            AuthenticationRepository.getSessionId()
+            AuthenticationRepository.createSessionId()
         }
     }
 

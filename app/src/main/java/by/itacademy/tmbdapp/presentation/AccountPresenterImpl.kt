@@ -1,5 +1,7 @@
 package by.itacademy.tmbdapp.presentation
 
+import android.util.Log
+import by.itacademy.tmbdapp.api.TAG
 import by.itacademy.tmbdapp.api.accountapi.AccountRepository
 import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.model.AccountModelMapper
@@ -16,7 +18,10 @@ class AccountPresenterImpl(
         AccountRepository.getAccountDetails(sessionId)
             .map { item -> accountModelMapper.invoke(item) }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { result -> accountActivityListener.getDetails(result) }
+            .subscribe { result ->
+                accountActivityListener.getDetails(result)
+            }
+
     }
 
     override fun getAccountRatedMoviesList(sessionId: String?, posterAdapter: PosterAdapter) {

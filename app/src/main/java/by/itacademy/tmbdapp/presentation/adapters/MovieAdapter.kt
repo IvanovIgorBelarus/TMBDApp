@@ -59,8 +59,14 @@ class MovieAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
     }
 
     fun update(list: List<UIMovieModel>) {
-        dataList.addAll(list)
-        notifyDataSetChanged()
+        if (dataList.isEmpty()) {
+            dataList.addAll(list)
+            notifyDataSetChanged()
+        }else{
+            dataList.clear()
+            dataList.addAll(list)
+            notifyDataSetChanged()
+        }
     }
 
     inner class FeedViewHolder(private val binding: FeedRecyclerBinding) :

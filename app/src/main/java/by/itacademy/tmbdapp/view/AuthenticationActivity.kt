@@ -3,7 +3,6 @@ package by.itacademy.tmbdapp.view
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import by.itacademy.tmbdapp.api.accountapi.AccountRepository
 import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.api.data.UsersDataJSON
 import by.itacademy.tmbdapp.databinding.ActivityAuthenticationBinding
