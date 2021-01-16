@@ -62,7 +62,7 @@ class MovieAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
         if (dataList.isEmpty()) {
             dataList.addAll(list)
             notifyDataSetChanged()
-        }else{
+        } else {
             dataList.clear()
             dataList.addAll(list)
             notifyDataSetChanged()

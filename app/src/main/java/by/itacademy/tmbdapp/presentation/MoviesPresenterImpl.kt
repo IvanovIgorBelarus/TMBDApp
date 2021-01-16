@@ -1,7 +1,6 @@
 package by.itacademy.tmbdapp.presentation
 
 import androidx.recyclerview.widget.RecyclerView
-import by.itacademy.tmbdapp.api.data.Movie
 import by.itacademy.tmbdapp.api.moviesapi.MoviesRepository
 import by.itacademy.tmbdapp.presentation.adapters.CategoryAdapter
 
@@ -15,10 +14,11 @@ class MoviesPresenterImpl(
         MoviesRepository.getCategoryMovies(
             category,
             page,
-            language = recyclerView.context.resources.configuration.locale.toLanguageTag(),
-            ::getMovies,
-            ::onError
-        )
+            language = recyclerView.context.resources.configuration.locale.toLanguageTag()
+        ).subscribe { list ->
+            adapter.appendMovies(list.movies)
+            attachMoviesOnScrollListener()
+        }
     }
 
     private fun attachMoviesOnScrollListener() {
@@ -33,13 +33,5 @@ class MoviesPresenterImpl(
                 }
             }
         })
-    }
-
-    private fun getMovies(movies: List<Movie>) {
-        adapter.appendMovies(movies)
-        attachMoviesOnScrollListener()
-    }
-
-    private fun onError() {
     }
 }

@@ -1,11 +1,8 @@
 package by.itacademy.tmbdapp.api.moviesapi
 
 import by.itacademy.tmbdapp.api.RetrofitRepository
-import by.itacademy.tmbdapp.api.data.GetMoviesResponse
-import by.itacademy.tmbdapp.api.data.Movie
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 object MoviesRepository {
@@ -13,33 +10,10 @@ object MoviesRepository {
         RetrofitRepository.getRetrofit().create(MoviesApi::class.java)
 
     fun getCategoryMovies(
-        category: String,
-        page: Int,
-        language: String?,
-        onSuccess: (movies: List<Movie>) -> Unit,
-        onError: () -> Unit,
-    ) {
-        moviesApi.getCategoryMovies(category, page = page, language = language)
-            .enqueue(object : Callback<GetMoviesResponse> {
-                override fun onResponse(
-                    call: Call<GetMoviesResponse>,
-                    response: Response<GetMoviesResponse>,
-                ) {
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()
-                        if (responseBody != null) {
-                            onSuccess.invoke(responseBody.movies)
-                        } else {
-                            onError.invoke()
-                        }
-                    } else {
-                        onError.invoke()
-                    }
-                }
-
-                override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
-                    onError.invoke()
-                }
-            })
-    }
+        category: String, page: Int, language: String?,
+    ) = moviesApi.getCategoryMovies(
+        category = category,
+        page = page,
+        language = language).subscribeOn(Schedulers.newThread())
+        .observeOn(AndroidSchedulers.mainThread())
 }

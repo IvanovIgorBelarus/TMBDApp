@@ -1,7 +1,7 @@
 package by.itacademy.tmbdapp.api.moviesapi
 
 import by.itacademy.tmbdapp.api.data.GetMoviesResponse
-import retrofit2.Call
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -15,5 +15,5 @@ interface MoviesApi {
         @Query("api_key") apiKey: String = API_KEY,
         @Query("page") page: Int,
         @Query("language") language: String?,
-    ): Call<GetMoviesResponse>
+    ): Single<GetMoviesResponse>
 }

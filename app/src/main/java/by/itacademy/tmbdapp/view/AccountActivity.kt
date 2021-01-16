@@ -1,7 +1,6 @@
 package by.itacademy.tmbdapp.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.databinding.ActivityAccountBinding

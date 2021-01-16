@@ -17,7 +17,6 @@ import by.itacademy.tmbdapp.uimodel.UIMovieModel
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
-import java.util.Locale
 
 
 class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
