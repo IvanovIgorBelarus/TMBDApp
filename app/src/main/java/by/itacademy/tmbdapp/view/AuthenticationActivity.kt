@@ -9,12 +9,12 @@ import by.itacademy.tmbdapp.databinding.ActivityAuthenticationBinding
 import by.itacademy.tmbdapp.presentation.AuthenticationActivityListener
 import by.itacademy.tmbdapp.presentation.AuthenticationActivityPresenter
 import by.itacademy.tmbdapp.presentation.AuthenticationActivityPresenterImpl
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class AuthenticationActivity : BaseActivity(), AuthenticationActivityListener {
     private lateinit var binding: ActivityAuthenticationBinding
-    private val authenticationActivityPresenter: AuthenticationActivityPresenter by lazy {
-        AuthenticationActivityPresenterImpl(this)
-    }
+    private val authenticationActivityPresenter: AuthenticationActivityPresenter by inject<AuthenticationActivityPresenterImpl> { parametersOf(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

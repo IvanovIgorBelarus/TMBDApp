@@ -3,6 +3,7 @@ package by.itacademy.tmbdapp
 import android.app.Application
 import android.content.Context
 import by.itacademy.tmbdapp.di.accountModule
+import by.itacademy.tmbdapp.di.authModule
 import by.itacademy.tmbdapp.di.movieModule
 import by.itacademy.tmbdapp.view.BaseActivity
 import org.koin.android.ext.koin.androidContext
@@ -24,7 +25,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(movieModule, accountModule)
+            modules(movieModule, accountModule, authModule)
         }
     }
 }

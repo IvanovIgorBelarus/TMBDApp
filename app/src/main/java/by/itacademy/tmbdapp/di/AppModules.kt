@@ -4,6 +4,8 @@ import by.itacademy.tmbdapp.model.AccountModelMapper
 import by.itacademy.tmbdapp.model.AccountRatePathMapper
 import by.itacademy.tmbdapp.presentation.AccountActivityListener
 import by.itacademy.tmbdapp.presentation.AccountPresenterImpl
+import by.itacademy.tmbdapp.presentation.AuthenticationActivityListener
+import by.itacademy.tmbdapp.presentation.AuthenticationActivityPresenterImpl
 import by.itacademy.tmbdapp.presentation.MovieActivityListener
 import by.itacademy.tmbdapp.presentation.MoviePresenter
 import by.itacademy.tmbdapp.presentation.MoviePresenterImpl
@@ -30,4 +32,7 @@ val accountModule = module {
     single { AccountRatePathMapper() }
     factory { (accountActivityListener: AccountActivityListener) -> AccountPresenterImpl(accountActivityListener, get(), get()) }
     factory { PosterAdapter() }
+}
+val authModule = module {
+    factory { (listener: AuthenticationActivityListener) -> AuthenticationActivityPresenterImpl(listener) }
 }
