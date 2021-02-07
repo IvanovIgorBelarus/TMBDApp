@@ -17,15 +17,16 @@ import by.itacademy.tmbdapp.uimodel.UIMovieModel
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
-
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
     YouTubePlayer.OnInitializedListener {
     private lateinit var binding: ActivityMovieBinding
-    private val moviePresenter: MoviePresenter by lazy { MoviePresenterImpl(this) }
+    private val moviePresenter: MoviePresenter by inject<MoviePresenterImpl> { parametersOf(this) }
     private var id = -1
     private var youtubeKey = ""
-    private val movieAdapter by lazy { MovieAdapter(this) }
+    private val movieAdapter by inject<MovieAdapter> { parametersOf(moviePresenter) }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -9,8 +9,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 
 class AccountPresenterImpl(
     private val accountActivityListener: AccountActivityListener,
-    private val accountModelMapper: AccountModelMapper = AccountModelMapper(),
-    private val accountRatePathMapper: AccountRatePathMapper = AccountRatePathMapper(),
+    private val accountModelMapper: AccountModelMapper,
+    private val accountRatePathMapper: AccountRatePathMapper
 ) : AccountPresenter {
     override fun getAccountDetailsApi(sessionId: String?) {
         AccountRepository.getAccountDetails(sessionId)

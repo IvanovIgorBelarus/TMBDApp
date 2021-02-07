@@ -11,10 +11,10 @@ import by.itacademy.tmbdapp.view.BaseActivity
 
 class MoviePresenterImpl(
     private val movieActivityListener: MovieActivityListener,
-    private val feedItemMapper: FeedItemMapper = FeedItemMapper(),
-    private val overViewMapper: OverViewMapper = OverViewMapper(),
-    private val similarMoviesMapper: SimilarMoviesMapper = SimilarMoviesMapper(),
-    private val factsMapper: FactsMapper = FactsMapper(),
+    private val feedItemMapper: FeedItemMapper,
+    private val overViewMapper: OverViewMapper,
+    private val similarMoviesMapper: SimilarMoviesMapper,
+    private val factsMapper: FactsMapper
 ) :
     MoviePresenter {
     private val list = mutableListOf<UIMovieModel>()

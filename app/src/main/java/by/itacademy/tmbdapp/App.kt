@@ -2,7 +2,12 @@ package by.itacademy.tmbdapp
 
 import android.app.Application
 import android.content.Context
+import by.itacademy.tmbdapp.di.accountModule
+import by.itacademy.tmbdapp.di.movieModule
 import by.itacademy.tmbdapp.view.BaseActivity
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 import java.util.Locale
 
 class App : Application() {
@@ -15,5 +20,11 @@ class App : Application() {
             language = "ru"
         }
         BaseActivity.dLocale = Locale(language)
+
+        startKoin {
+            androidLogger()
+            androidContext(this@App)
+            modules(movieModule, accountModule)
+        }
     }
 }

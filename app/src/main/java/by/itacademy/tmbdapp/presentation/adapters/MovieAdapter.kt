@@ -1,6 +1,5 @@
 package by.itacademy.tmbdapp.presentation.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,12 +10,13 @@ import by.itacademy.tmbdapp.databinding.FactsRecyclerBinding
 import by.itacademy.tmbdapp.databinding.FeedRecyclerBinding
 import by.itacademy.tmbdapp.databinding.OverviewRecyclerBinding
 import by.itacademy.tmbdapp.databinding.SimilarRecyclerBinding
-import by.itacademy.tmbdapp.presentation.MovieActivityListener
-import by.itacademy.tmbdapp.presentation.MoviePresenterImpl
+import by.itacademy.tmbdapp.presentation.MoviePresenter
 import by.itacademy.tmbdapp.uimodel.UIMovieModel
 import com.bumptech.glide.Glide
 
-class MovieAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MovieAdapter(
+    private val moviePresenter: MoviePresenter,
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var dataList = mutableListOf<UIMovieModel>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -82,7 +82,7 @@ class MovieAdapter(private val context: Context) : RecyclerView.Adapter<Recycler
                     .into(poster)
                 rating.setOnRatingBarChangeListener { ratingBar, fl, b ->
                     if (b) {
-                        MoviePresenterImpl(context as MovieActivityListener).rateMovie(item.id, fl)
+                        moviePresenter.rateMovie(item.id, fl)
                         ratingBar.setIsIndicator(true)
                     }
                 }
