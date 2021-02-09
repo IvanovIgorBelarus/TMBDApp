@@ -13,9 +13,11 @@ import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.databinding.ActivityMainBinding
 import by.itacademy.tmbdapp.presentation.adapters.CategoryPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.android.ext.android.inject
 
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val authenticationRepository by inject<AuthenticationRepository>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -40,7 +42,7 @@ class MainActivity : BaseActivity() {
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
             R.id.userInfo -> {
-                if (AuthenticationRepository.getSessionId()!= null) {
+                if (authenticationRepository.getSessionId() != null) {
                     startActivity(Intent(this, AccountActivity::class.java))
                 } else {
                     Toast.makeText(this, "you must Sign in!!!", Toast.LENGTH_SHORT).show()
@@ -66,11 +68,11 @@ class MainActivity : BaseActivity() {
     }
 
     private fun createSession() {
-        if (AuthenticationRepository.getRequestToken() == null) {
-            AuthenticationRepository.createGuestSessionId()
+        if (authenticationRepository.getRequestToken() == null) {
+            authenticationRepository.createGuestSessionId()
             Toast.makeText(this, getString(R.string.main_activity_toast), Toast.LENGTH_LONG).show()
         } else {
-            AuthenticationRepository.createSessionId()
+            authenticationRepository.createSessionId()
         }
     }
 

@@ -5,16 +5,17 @@ import by.itacademy.tmbdapp.api.data.UsersDataJSON
 
 class AuthenticationActivityPresenterImpl(
     private val authenticationActivityListener: AuthenticationActivityListener,
+    private val authenticationRepository:AuthenticationRepository
 ) : AuthenticationActivityPresenter {
 
     override fun createSessionWithLoginFromApi(userDataJSON: UsersDataJSON) {
-        AuthenticationRepository.createSessionWithLogin(userDataJSON)
+        authenticationRepository.createSessionWithLogin(userDataJSON)
             .subscribe{item->authenticationActivityListener.createSessionWithLogin(item.success)
         }
     }
 
     override fun getRequestTokenFromApi() {
-        AuthenticationRepository.getRequestToken()
+        authenticationRepository.getRequestToken()
     }
 
 }

@@ -14,13 +14,15 @@ class MoviePresenterImpl(
     private val feedItemMapper: FeedItemMapper,
     private val overViewMapper: OverViewMapper,
     private val similarMoviesMapper: SimilarMoviesMapper,
-    private val factsMapper: FactsMapper
+    private val factsMapper: FactsMapper,
+    private val movieRepository: MovieRepository,
+    private val authenticationRepository: AuthenticationRepository
 ) :
     MoviePresenter {
     private val list = mutableListOf<UIMovieModel>()
 
     override fun getMovieFromAPI(id: Int) {
-        MovieRepository.getMovie(id, BaseActivity.dLocale.toLanguageTag())
+        movieRepository.getMovie(id, BaseActivity.dLocale.toLanguageTag())
             .subscribe { result ->
                 list.add(feedItemMapper.invoke(result))
                 list.add(overViewMapper.invoke(result))
@@ -30,7 +32,7 @@ class MoviePresenterImpl(
     }
 
     override fun getSimilarMoviesFromAPI(id: Int) {
-        MovieRepository.getSimilarMovies(id,
+        movieRepository.getSimilarMovies(id,
             language = BaseActivity.dLocale.toLanguageTag())
             .subscribe { result ->
                 if (result.results.isNotEmpty()) {
@@ -41,7 +43,7 @@ class MoviePresenterImpl(
     }
 
     override fun getTrailerFromApi(id: Int) {
-        MovieRepository.getMovieTrailer(id)
+        movieRepository.getMovieTrailer(id)
             .subscribe { movieTrailer ->
                 if (movieTrailer.results.isNotEmpty()) {
                     movieActivityListener.setTrailer(movieTrailer.results[0].key)
@@ -50,12 +52,12 @@ class MoviePresenterImpl(
     }
 
     override fun rateMovie(id: Int, rate: Float) {
-        if (AuthenticationRepository.getSessionId() != null) {
-            MovieRepository.rateMovieFromUser(id, rate)
-                .subscribe { result -> movieActivityListener.doRate() }
+        if (authenticationRepository.getSessionId() != null) {
+            movieRepository.rateMovieFromUser(id, rate)
+                .subscribe { _ -> movieActivityListener.doRate() }
         } else {
-            MovieRepository.rateMovieFromGuest(id, rate)
-                .subscribe { result -> movieActivityListener.doRate() }
+            movieRepository.rateMovieFromGuest(id, rate)
+                .subscribe { _ -> movieActivityListener.doRate() }
         }
     }
 }

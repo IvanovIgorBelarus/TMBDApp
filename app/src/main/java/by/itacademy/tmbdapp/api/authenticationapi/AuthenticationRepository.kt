@@ -7,7 +7,7 @@ import by.itacademy.tmbdapp.api.data.UsersDataJSON
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-object AuthenticationRepository {
+class AuthenticationRepository {
     private val authenticationApi: AuthenticationApi =
         RetrofitRepository.getRetrofit().create(AuthenticationApi::class.java)
     private var requestToken: String? = null

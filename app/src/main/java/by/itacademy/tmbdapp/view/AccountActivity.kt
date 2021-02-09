@@ -17,14 +17,15 @@ import org.koin.core.parameter.parametersOf
 class AccountActivity : BaseActivity(), AccountActivityListener {
     private lateinit var binding: ActivityAccountBinding
     private val accountPresenter: AccountPresenter by inject<AccountPresenterImpl> { parametersOf(this) }
-    private val posterAdapter by inject<PosterAdapter>()
+    private val posterAdapter: PosterAdapter by inject()
+    private val authenticationRepository by inject<AuthenticationRepository>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if (AuthenticationRepository.getSessionId() != null) {
-            accountPresenter.getAccountDetailsApi(AuthenticationRepository.getSessionId())
-            accountPresenter.getAccountRatedMoviesList(AuthenticationRepository.getSessionId(),
+        if (authenticationRepository.getSessionId() != null) {
+            accountPresenter.getAccountDetailsApi(authenticationRepository.getSessionId())
+            accountPresenter.getAccountRatedMoviesList(authenticationRepository.getSessionId(),
                 posterAdapter)
         }
         binding.posterRecycler.apply {
