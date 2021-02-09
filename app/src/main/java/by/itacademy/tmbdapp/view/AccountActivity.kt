@@ -10,19 +10,22 @@ import by.itacademy.tmbdapp.presentation.AccountPresenter
 import by.itacademy.tmbdapp.presentation.AccountPresenterImpl
 import by.itacademy.tmbdapp.presentation.adapters.PosterAdapter
 import com.bumptech.glide.Glide
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 
 class AccountActivity : BaseActivity(), AccountActivityListener {
     private lateinit var binding: ActivityAccountBinding
-    private val accountPresenter: AccountPresenter by lazy { AccountPresenterImpl(this) }
-    private val posterAdapter: PosterAdapter by lazy { PosterAdapter() }
+    private val accountPresenter: AccountPresenter by inject<AccountPresenterImpl> { parametersOf(this) }
+    private val posterAdapter: PosterAdapter by inject()
+    private val authenticationRepository by inject<AuthenticationRepository>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if (AuthenticationRepository.getSessionId() != null) {
-            accountPresenter.getAccountDetailsApi(AuthenticationRepository.getSessionId())
-            accountPresenter.getAccountRatedMoviesList(AuthenticationRepository.getSessionId(),
+        if (authenticationRepository.getSessionId() != null) {
+            accountPresenter.getAccountDetailsApi(authenticationRepository.getSessionId())
+            accountPresenter.getAccountRatedMoviesList(authenticationRepository.getSessionId(),
                 posterAdapter)
         }
         binding.posterRecycler.apply {

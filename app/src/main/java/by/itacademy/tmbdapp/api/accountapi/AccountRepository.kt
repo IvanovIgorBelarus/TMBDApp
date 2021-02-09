@@ -3,7 +3,7 @@ package by.itacademy.tmbdapp.api.accountapi
 import by.itacademy.tmbdapp.api.RetrofitRepository
 import io.reactivex.schedulers.Schedulers
 
-object AccountRepository {
+class AccountRepository {
     private val accountApi: AccountApi =
         RetrofitRepository.getRetrofit().create(AccountApi::class.java)
 

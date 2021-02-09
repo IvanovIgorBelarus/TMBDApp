@@ -9,13 +9,13 @@ import by.itacademy.tmbdapp.databinding.ActivityAuthenticationBinding
 import by.itacademy.tmbdapp.presentation.AuthenticationActivityListener
 import by.itacademy.tmbdapp.presentation.AuthenticationActivityPresenter
 import by.itacademy.tmbdapp.presentation.AuthenticationActivityPresenterImpl
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class AuthenticationActivity : BaseActivity(), AuthenticationActivityListener {
     private lateinit var binding: ActivityAuthenticationBinding
-    private val authenticationActivityPresenter: AuthenticationActivityPresenter by lazy {
-        AuthenticationActivityPresenterImpl(this)
-    }
-
+    private val authenticationActivityPresenter: AuthenticationActivityPresenter by inject<AuthenticationActivityPresenterImpl> { parametersOf(this) }
+    private val authenticationRepository by inject<AuthenticationRepository>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthenticationBinding.inflate(layoutInflater)
@@ -25,7 +25,7 @@ class AuthenticationActivity : BaseActivity(), AuthenticationActivityListener {
             val name = binding.userName.text.toString()
             val password = binding.userPassword.text.toString()
             authenticationActivityPresenter.createSessionWithLoginFromApi(
-                UsersDataJSON(name, password, AuthenticationRepository.getRequestToken()!!)
+                UsersDataJSON(name, password, authenticationRepository.getRequestToken()!!)
             )
             startActivity(Intent(this, MainActivity::class.java))
             finish()

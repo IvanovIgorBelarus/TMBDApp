@@ -9,11 +9,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 
 class AccountPresenterImpl(
     private val accountActivityListener: AccountActivityListener,
-    private val accountModelMapper: AccountModelMapper = AccountModelMapper(),
-    private val accountRatePathMapper: AccountRatePathMapper = AccountRatePathMapper(),
+    private val accountModelMapper: AccountModelMapper,
+    private val accountRatePathMapper: AccountRatePathMapper,
+    private val accountRepository: AccountRepository,
+    private val authenticationRepository: AuthenticationRepository,
 ) : AccountPresenter {
     override fun getAccountDetailsApi(sessionId: String?) {
-        AccountRepository.getAccountDetails(sessionId)
+        accountRepository.getAccountDetails(sessionId)
             .map { item -> accountModelMapper.invoke(item) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result ->
@@ -23,7 +25,7 @@ class AccountPresenterImpl(
     }
 
     override fun getAccountRatedMoviesList(sessionId: String?, posterAdapter: PosterAdapter) {
-        AccountRepository.getAccountRatedMovies(AuthenticationRepository.getSessionId())
+        accountRepository.getAccountRatedMovies(authenticationRepository.getSessionId())
             .map { item -> accountRatePathMapper.invoke(item.results) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result ->

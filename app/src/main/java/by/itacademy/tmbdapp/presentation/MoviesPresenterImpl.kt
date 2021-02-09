@@ -8,10 +8,11 @@ class MoviesPresenterImpl(
     private val category: String,
     private val recyclerView: RecyclerView,
     private val adapter: CategoryAdapter,
+    private val moviesRepository:MoviesRepository
 ) : MoviesPresenter {
     private var page = 1
     override fun getListMovies() {
-        MoviesRepository.getCategoryMovies(
+        moviesRepository.getCategoryMovies(
             category,
             page,
             language = recyclerView.context.resources.configuration.locale.toLanguageTag()

@@ -14,6 +14,8 @@ import by.itacademy.tmbdapp.presentation.MoviesPresenter
 import by.itacademy.tmbdapp.presentation.MoviesPresenterImpl
 import by.itacademy.tmbdapp.presentation.adapters.CategoryAdapter
 import by.itacademy.tmbdapp.view.MovieActivity
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 const val POPULAR = "popular"
 const val TRENDING = "now_playing"
@@ -24,12 +26,8 @@ const val FAVORITE = "favorite"
 class BaseFragment : Fragment(), ListItemActionListener {
     private lateinit var categoryFragment: String
     private lateinit var binding: FragmentBaseBinding
-    private val popularAdapter by lazy { CategoryAdapter(this) }
-    private val moviesPresenter: MoviesPresenter by lazy {
-        MoviesPresenterImpl(categoryFragment,
-            binding.popularRecycler,
-            popularAdapter)
-    }
+    private val categoryAdapter by inject<CategoryAdapter> { parametersOf(this)}
+    private val moviesPresenter: MoviesPresenter by inject<MoviesPresenterImpl> { parametersOf(categoryFragment, binding.popularRecycler) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +39,7 @@ class BaseFragment : Fragment(), ListItemActionListener {
         binding = FragmentBaseBinding.bind(view)
         binding.popularRecycler.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = popularAdapter
+            adapter = categoryAdapter
         }
         moviesPresenter.getListMovies()
     }

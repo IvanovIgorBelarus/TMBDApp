@@ -5,7 +5,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
-object MoviesRepository {
+class MoviesRepository {
     private val moviesApi: MoviesApi =
         RetrofitRepository.getRetrofit().create(MoviesApi::class.java)
 
