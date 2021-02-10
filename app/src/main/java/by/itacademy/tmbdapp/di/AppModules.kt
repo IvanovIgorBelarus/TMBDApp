@@ -42,7 +42,7 @@ val accountModule = module {
     single { AccountRatePathMapper() }
     single { AccountDetailsMapper() }
     single { AccountRepository() }
-    factory { (accountActivityListener: AccountActivityListener) -> AccountPresenterImpl(accountActivityListener, get(), get(), get(), get(),get()) }
+    factory { (accountActivityListener: AccountActivityListener) -> AccountPresenterImpl(accountActivityListener, get(), get(), get(), get(), get()) }
     factory { PosterAdapter() }
 }
 val authModule = module {

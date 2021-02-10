@@ -17,6 +17,7 @@ import by.itacademy.tmbdapp.uimodel.UIMovieModel
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
+import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
