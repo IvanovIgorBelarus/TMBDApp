@@ -8,6 +8,7 @@ import by.itacademy.tmbdapp.uimodel.uimodelmapper.FeedItemMapper
 import by.itacademy.tmbdapp.uimodel.uimodelmapper.OverViewMapper
 import by.itacademy.tmbdapp.uimodel.uimodelmapper.SimilarMoviesMapper
 import by.itacademy.tmbdapp.view.BaseActivity
+import io.reactivex.Single
 
 class MoviePresenterImpl(
     private val movieActivityListener: MovieActivityListener,
@@ -16,30 +17,22 @@ class MoviePresenterImpl(
     private val similarMoviesMapper: SimilarMoviesMapper,
     private val factsMapper: FactsMapper,
     private val movieRepository: MovieRepository,
-    private val authenticationRepository: AuthenticationRepository
+    private val authenticationRepository: AuthenticationRepository,
 ) :
     MoviePresenter {
-    private val list = mutableListOf<UIMovieModel>()
 
     override fun getMovieFromAPI(id: Int) {
-        movieRepository.getMovie(id, BaseActivity.dLocale.toLanguageTag())
-            .subscribe { result ->
-                list.add(feedItemMapper.invoke(result))
-                list.add(overViewMapper.invoke(result))
-                list.add(factsMapper.invoke(result))
-                movieActivityListener.setValue(list.toList())
-            }
-    }
-
-    override fun getSimilarMoviesFromAPI(id: Int) {
-        movieRepository.getSimilarMovies(id,
+        val movieData = movieRepository.getMovie(id, BaseActivity.dLocale.toLanguageTag())
+        val similarMoviesData = movieRepository.getSimilarMovies(id,
             language = BaseActivity.dLocale.toLanguageTag())
-            .subscribe { result ->
-                if (result.results.isNotEmpty()) {
-                    list.add(similarMoviesMapper.invoke(result.results.toMutableList()))
-                    movieActivityListener.setValue(list.toList())
-                }
+        Single.zip(movieData, similarMoviesData) { m, s ->
+            mutableListOf<UIMovieModel>().apply {
+                add(feedItemMapper.invoke(m))
+                add(overViewMapper.invoke(m))
+                add(factsMapper.invoke(m))
+                add(similarMoviesMapper.invoke(s.results.toMutableList()))
             }
+        }.subscribe { list -> movieActivityListener.setValue(list.toList()) }
     }
 
     override fun getTrailerFromApi(id: Int) {

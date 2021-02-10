@@ -46,11 +46,6 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
-    override fun onStart() {
-        super.onStart()
-        moviePresenter.getSimilarMoviesFromAPI(id)
-    }
-
     override fun setValue(list: List<UIMovieModel>) {
         movieAdapter.update(list)
     }
