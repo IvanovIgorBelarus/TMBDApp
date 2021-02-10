@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-
 class AccountActivity : BaseActivity(), AccountActivityListener {
     private lateinit var binding: ActivityAccountBinding
     private val accountPresenter: AccountPresenter by inject<AccountPresenterImpl> { parametersOf(this) }
@@ -24,9 +23,7 @@ class AccountActivity : BaseActivity(), AccountActivityListener {
         binding = ActivityAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if (authenticationRepository.getSessionId() != null) {
-            accountPresenter.getAccountDetailsApi(authenticationRepository.getSessionId())
-            accountPresenter.getAccountRatedMoviesList(authenticationRepository.getSessionId(),
-                posterAdapter)
+            accountPresenter.getAccountDetailsApi(authenticationRepository.getSessionId(), posterAdapter)
         }
         binding.posterRecycler.apply {
             layoutManager =

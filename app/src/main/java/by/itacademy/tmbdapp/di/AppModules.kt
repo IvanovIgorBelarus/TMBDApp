@@ -5,6 +5,7 @@ import by.itacademy.tmbdapp.api.accountapi.AccountRepository
 import by.itacademy.tmbdapp.api.authenticationapi.AuthenticationRepository
 import by.itacademy.tmbdapp.api.movieapi.MovieRepository
 import by.itacademy.tmbdapp.api.moviesapi.MoviesRepository
+import by.itacademy.tmbdapp.model.AccountDetailsMapper
 import by.itacademy.tmbdapp.model.AccountModelMapper
 import by.itacademy.tmbdapp.model.AccountRatePathMapper
 import by.itacademy.tmbdapp.presentation.AccountActivityListener
@@ -39,8 +40,9 @@ val movieModule = module {
 val accountModule = module {
     single { AccountModelMapper() }
     single { AccountRatePathMapper() }
+    single { AccountDetailsMapper() }
     single { AccountRepository() }
-    factory { (accountActivityListener: AccountActivityListener) -> AccountPresenterImpl(accountActivityListener, get(), get(), get(), get()) }
+    factory { (accountActivityListener: AccountActivityListener) -> AccountPresenterImpl(accountActivityListener, get(), get(), get(), get(), get()) }
     factory { PosterAdapter() }
 }
 val authModule = module {

@@ -17,6 +17,7 @@ import by.itacademy.tmbdapp.uimodel.UIMovieModel
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
+import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -44,11 +45,6 @@ class MovieActivity : YouTubeBaseActivity(), MovieActivityListener,
             getMovieFromAPI(id)
         }
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-    }
-
-    override fun onStart() {
-        super.onStart()
-        moviePresenter.getSimilarMoviesFromAPI(id)
     }
 
     override fun setValue(list: List<UIMovieModel>) {
